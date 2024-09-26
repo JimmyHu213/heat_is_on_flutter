@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "117374207692",
+    "project_id": "heat-is-on",
+    "storage_bucket": "heat-is-on.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117374207692:android:538c4d95567ac6f46de469",
+        "android_client_info": {
+          "package_name": "com.example.heat_is_on_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJzcodKO-XDSYN0l07eTLBUcxzLWfMh0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
