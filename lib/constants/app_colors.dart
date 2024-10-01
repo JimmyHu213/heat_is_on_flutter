@@ -5,6 +5,8 @@ const Color primaryColor = Color(0xFF006341);
 const Color primaryColorLight = Color(0xFF428E7A);
 const Color secondaryColor = Color(0xFFE6E6E6);
 
+//Charts Colors
+
 //bushfire Colors
 const Color bushFireColor1 = Color(0xFFFF7939);
 const Color bushFireColor2 = Color(0xFFFF9F78);

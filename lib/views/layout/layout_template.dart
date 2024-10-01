@@ -29,6 +29,7 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
       builder: (context, sizingInformation) {
         return ResponsiveBuilder(
             builder: (context, sizingInformation) => Scaffold(
+                backgroundColor: primaryColor,
                 appBar: PreferredSize(
                   preferredSize: const Size.fromHeight(300),
                   child: AppBar(
@@ -44,14 +45,14 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
                       backgroundColor: primaryColor,
                       elevation: 0),
                 ),
-                body: SafeArea(
-                  child: CenterView(
-                      child: Column(children: <Widget>[
-                    sizingInformation.deviceScreenType ==
-                            DeviceScreenType.mobile
-                        ? Expanded(child: MobilePage())
-                        : Expanded(child: DashBoard())
-                  ])),
+                body: SingleChildScrollView(
+                  child: SafeArea(
+                    child: CenterView(
+                        child: sizingInformation.deviceScreenType ==
+                                DeviceScreenType.mobile
+                            ? Expanded(child: MobilePage())
+                            : Expanded(child: DashBoard())),
+                  ),
                 )));
       },
     );
