@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/widgets/bar_chart_template.dart';
 
 class BarChartsView extends StatelessWidget {
@@ -16,7 +17,7 @@ class BarChartsView extends StatelessWidget {
                 BarChartRodData(
                   width: barWidth,
                   toY: 100, // Example data
-                  color: Colors.lightBlueAccent,
+                  color: primaryColorLight,
                 )
               ],
               showingTooltipIndicators: [0],

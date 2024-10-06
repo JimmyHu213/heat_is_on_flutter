@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/views/home/dash_board.dart';
+import 'package:heat_is_on_flutter/views/layout/header.dart';
+import 'package:heat_is_on_flutter/views/intro/intro_view.dart';
 import 'package:heat_is_on_flutter/views/layout/mobile_page.dart';
 import 'package:heat_is_on_flutter/widgets/center_view.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -32,26 +34,17 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
                 backgroundColor: primaryColor,
                 appBar: PreferredSize(
                   preferredSize: const Size.fromHeight(250),
-                  child: AppBar(
-                      flexibleSpace: Container(
-                        decoration: BoxDecoration(
-                          image: const DecorationImage(
-                              image: AssetImage('assets/images/web-banner.png'),
-                              fit: BoxFit.fill),
-                          //border: Border.all(color: Colors.red, width: 3),
-                          borderRadius: BorderRadius.all(Radius.circular(100)),
-                        ),
-                      ),
-                      backgroundColor: primaryColor,
-                      elevation: 0),
+                  child: Header(),
                 ),
                 body: SingleChildScrollView(
                   child: SafeArea(
                     child: CenterView(
                         child: sizingInformation.deviceScreenType ==
-                                DeviceScreenType.mobile
-                            ? Expanded(child: MobilePage())
-                            : Expanded(child: DashBoard())),
+                                    DeviceScreenType.mobile ||
+                                sizingInformation.deviceScreenType ==
+                                    DeviceScreenType.tablet
+                            ? MobilePage()
+                            : DashBoard()),
                   ),
                 )));
       },

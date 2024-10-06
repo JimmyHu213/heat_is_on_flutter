@@ -24,11 +24,11 @@ class TableView extends StatelessWidget {
   ];
 
   final List<String> towns = [
-    'town1',
-    'town2',
-    'town3',
-    'town4',
-    'town5',
+    'Town1',
+    'Town2',
+    'Town3',
+    'Town4',
+    'Town5',
   ];
 
   @override
@@ -38,8 +38,7 @@ class TableView extends StatelessWidget {
     return SizedBox(
         width: double.infinity,
         height: 600,
-        child: Expanded(
-            child: DataTable(
+        child: DataTable(
           dataRowMaxHeight: 80,
           headingRowColor: MaterialStateProperty.all(Colors.grey),
           border: TableBorder.all(
@@ -68,13 +67,19 @@ class TableView extends StatelessWidget {
             ...List<DataRow>.generate(
                 towns.length,
                 (index) => DataRow(cells: [
+                      DataCell(Text(
+                        towns[index],
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      )),
                       ...List<DataCell>.generate(
-                          tableHeaders.length,
+                          tableHeaders.length - 1,
                           (index) => DataCell(
                                 Text(''),
                               ))
                     ])),
           ],
-        )));
+        ));
   }
 }

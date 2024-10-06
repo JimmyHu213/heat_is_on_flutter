@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/views/home/bars_charts.dart';
 import 'package:heat_is_on_flutter/views/home/pie_charts.dart';
 import 'package:heat_is_on_flutter/views/home/table.dart';
+import 'package:heat_is_on_flutter/views/layout/footer.dart';
 
 class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
@@ -18,7 +19,9 @@ class DashBoard extends StatelessWidget {
           SizedBox(height: 20),
           TableView(),
           const SizedBox(height: 20),
-          BarChartsView()
+          BarChartsView(),
+          const SizedBox(height: 20),
+          Footer()
         ],
       ),
     );
