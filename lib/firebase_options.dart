@@ -72,4 +72,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'heat-is-on.appspot.com',
     iosBundleId: 'com.example.heatIsOnFlutter',
   );
+
 }

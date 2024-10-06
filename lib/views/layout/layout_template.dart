@@ -31,12 +31,12 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
             builder: (context, sizingInformation) => Scaffold(
                 backgroundColor: primaryColor,
                 appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(300),
+                  preferredSize: const Size.fromHeight(250),
                   child: AppBar(
                       flexibleSpace: Container(
                         decoration: BoxDecoration(
                           image: const DecorationImage(
-                              image: AssetImage('assets/images/banner.png'),
+                              image: AssetImage('assets/images/web-banner.png'),
                               fit: BoxFit.fill),
                           //border: Border.all(color: Colors.red, width: 3),
                           borderRadius: BorderRadius.all(Radius.circular(100)),

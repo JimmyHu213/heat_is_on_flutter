@@ -5,6 +5,8 @@ import 'package:heat_is_on_flutter/widgets/bar_chart_template.dart';
 class BarChartsView extends StatelessWidget {
   const BarChartsView({super.key});
 
+  final double barWidth = 22.0;
+
   List<BarChartGroupData> getBarGroups(count) {
     return List.generate(
         count,
@@ -12,6 +14,7 @@ class BarChartsView extends StatelessWidget {
               x: i,
               barRods: [
                 BarChartRodData(
+                  width: barWidth,
                   toY: 100, // Example data
                   color: Colors.lightBlueAccent,
                 )

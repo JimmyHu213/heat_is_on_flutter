@@ -41,11 +41,26 @@ class PieChartsView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        CustomPieChart(sections: getSections()),
-        CustomPieChart(sections: getSections()),
-        CustomPieChart(sections: getSections()),
-        CustomPieChart(sections: getSections()),
-        CustomPieChart(sections: getSections())
+        CustomPieChart(
+          sections: getSections(),
+          title: 'Town 1',
+        ),
+        CustomPieChart(
+          sections: getSections(),
+          title: 'Town 2',
+        ),
+        CustomPieChart(
+          sections: getSections(),
+          title: 'Town 3',
+        ),
+        CustomPieChart(
+          sections: getSections(),
+          title: 'Town 4',
+        ),
+        CustomPieChart(
+          sections: getSections(),
+          title: 'Town 5',
+        )
       ],
     );
   }
