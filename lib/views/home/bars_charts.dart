@@ -4,11 +4,26 @@ import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/widgets/bar_chart_template.dart';
 
 class BarChartsView extends StatelessWidget {
-  const BarChartsView({super.key});
+  BarChartsView({super.key});
 
   final double barWidth = 22.0;
 
-  List<BarChartGroupData> getBarGroups(count) {
+  final colors1 = [
+    natureColor,
+    economyColor,
+    societyColor,
+    healthColor,
+  ];
+
+  final colors2 = [
+    town1Color,
+    town2Color,
+    town3Color,
+    town4Color,
+    town5Color,
+  ];
+
+  List<BarChartGroupData> getBarGroups(count, List<Color> colors) {
     return List.generate(
         count,
         (i) => BarChartGroupData(
@@ -17,7 +32,7 @@ class BarChartsView extends StatelessWidget {
                 BarChartRodData(
                   width: barWidth,
                   toY: 100, // Example data
-                  color: primaryColorLight,
+                  color: colors[i],
                 )
               ],
               showingTooltipIndicators: [0],
@@ -26,9 +41,14 @@ class BarChartsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final barGroups1 = getBarGroups(4);
-    final barGroups2 = getBarGroups(5);
-    final xAxisLabels = ['Nature', 'Economy', 'Health', 'Society'];
+    final barGroups1 = getBarGroups(4, colors1);
+    final barGroups2 = getBarGroups(5, colors2);
+    final xAxisLabels = [
+      'Nature',
+      'Economy',
+      'Society',
+      'Health',
+    ];
     final xAxisLabels2 = ['Town1', 'Town2', 'Town3', 'Town4', 'Town5'];
     return SizedBox(
       width: double.infinity,

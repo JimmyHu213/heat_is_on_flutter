@@ -4,15 +4,15 @@ import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/widgets/pie_chart_template.dart';
 
 class PieChartsView extends StatelessWidget {
-  const PieChartsView({super.key});
+  PieChartsView({super.key});
 
   List<PieChartSectionData> getSections() {
     final colors = [
-      bushFireColor1,
-      heatwaveColor1,
-      stormSurgeColor1,
-      floodColor1,
-      biohazardColor1,
+      heatwaveColor2,
+      stormSurgeColor2,
+      floodColor2,
+      biohazardColor2,
+      bushFireColor2,
     ];
 
     return List.generate(20, (i) {
@@ -36,32 +36,26 @@ class PieChartsView extends StatelessWidget {
     });
   }
 
+  final townColors = [
+    town1Color,
+    town2Color,
+    town3Color,
+    town4Color,
+    town5Color,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        CustomPieChart(
+      children: List.generate(
+        5,
+        (i) => CustomPieChart(
           sections: getSections(),
-          title: 'Town 1',
+          title: 'Town ${i + 1}',
+          townColor: townColors[i],
         ),
-        CustomPieChart(
-          sections: getSections(),
-          title: 'Town 2',
-        ),
-        CustomPieChart(
-          sections: getSections(),
-          title: 'Town 3',
-        ),
-        CustomPieChart(
-          sections: getSections(),
-          title: 'Town 4',
-        ),
-        CustomPieChart(
-          sections: getSections(),
-          title: 'Town 5',
-        )
-      ],
+      ),
     );
   }
 }

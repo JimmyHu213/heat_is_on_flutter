@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:heat_is_on_flutter/constants/app_colors.dart';
 
 class CustomBarChart extends StatelessWidget {
   final List<BarChartGroupData> barGroups;
@@ -47,9 +48,9 @@ class CustomBarChart extends StatelessWidget {
                             const TextStyle(color: Colors.white),
                             children: <TextSpan>[
                               TextSpan(
-                                text: (rod.toY - 1).toString(),
+                                text: (rod.toY).toString(),
                                 style: const TextStyle(
-                                  color: Color(0xff2196f3),
+                                  color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),

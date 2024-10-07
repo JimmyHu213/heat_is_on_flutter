@@ -15,7 +15,7 @@ class TableView extends StatelessWidget {
 
   final List<String> evenLog = [
     'Event Log',
-    'BushFire',
+    'Bushfire',
     'Storm Surge',
     'Biohazard',
     'Heatwave',

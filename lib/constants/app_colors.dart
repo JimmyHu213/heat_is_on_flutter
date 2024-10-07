@@ -1,11 +1,22 @@
 import "package:flutter/material.dart";
 
 //App Colors
-const Color primaryColor = Color(0xFF006341);
+//const Color primaryColor = Color(0xFF006341);
 const Color primaryColorLight = Color(0xFF428E7A);
 const Color secondaryColor = Color(0xFFE6E6E6);
+const Color primaryColor = Color(0xFF4D8E8B);
 
 //Charts Colors
+const Color natureColor = Color(0xFF527334);
+const Color economyColor = Color(0xFFC8D2BE);
+const Color societyColor = Color(0xFFE38A6C);
+const Color healthColor = Color(0xFFFFFFFF);
+
+const Color town1Color = Color(0xFFFF9F78);
+const Color town2Color = Color(0xFFB2A7D6);
+const Color town3Color = Color(0xFF88BBB7);
+const Color town4Color = Color(0xFFFF7D89);
+const Color town5Color = Color(0xFFDDB3E9);
 
 //bushfire Colors
 const Color bushFireColor1 = Color(0xFFFF7939);
@@ -16,20 +27,20 @@ const Color bushFireColor5 = Color(0xFFFFF2C2);
 const Color bushFireColor6 = Color(0xFFFFD824);
 
 // Biohazard colors
-const Color biohazardColor1 = Color(0xFFFF3B53);
-const Color biohazardColor2 = Color(0xFFFF7D89);
-const Color biohazardColor3 = Color(0xFFFF8489);
-const Color biohazardColor4 = Color(0xFFFFAAAD);
-const Color biohazardColor5 = Color(0xFFFFDBDB);
-const Color biohazardColor6 = Color(0xFFFFD8DD);
+const Color heatwaveColor1 = Color(0xFFFF3B53);
+const Color heatwaveColor2 = Color(0xFFFF7D89);
+const Color heatwaveColor3 = Color(0xFFFF8489);
+const Color heatwaveColor4 = Color(0xFFFFAAAD);
+const Color heatwaveColor5 = Color(0xFFFFDBDB);
+const Color heatwaveColor6 = Color(0xFFFFD8DD);
 
 // Heatwave colors
-const Color heatwaveColor1 = Color(0xFFBA6CD5);
-const Color heatwaveColor2 = Color(0xFFDDB3E9);
-const Color heatwaveColor3 = Color(0xFFEA45E3);
-const Color heatwaveColor4 = Color(0xFFF280EB);
-const Color heatwaveColor5 = Color(0xFFF9C7F5);
-const Color heatwaveColor6 = Color(0xFFEFDFF4);
+const Color biohazardColor1 = Color(0xFFBA6CD5);
+const Color biohazardColor2 = Color(0xFFDDB3E9);
+const Color biohazardColor3 = Color(0xFFEA45E3);
+const Color biohazardColor4 = Color(0xFFF280EB);
+const Color biohazardColor5 = Color(0xFFF9C7F5);
+const Color biohazardColor6 = Color(0xFFEFDFF4);
 
 // Flood colors
 const Color floodColor1 = Color(0xFF6954AE);

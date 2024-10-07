@@ -45,7 +45,6 @@ class Header extends StatelessWidget {
                 image: AssetImage('assets/images/web-banner.png'),
                 fit: BoxFit.fill),
             //border: Border.all(color: Colors.red, width: 3),
-            borderRadius: BorderRadius.all(Radius.circular(100)),
           ),
         ),
         backgroundColor: primaryColor,

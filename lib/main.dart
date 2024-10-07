@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:heat_is_on_flutter/constants/config.dart';
+import 'package:heat_is_on_flutter/constants/config.dart' as config;
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/views/layout/layout_template.dart';
 import 'firebase_options.dart';
@@ -20,15 +20,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: TITLE,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: primaryColor,
-            primary: primaryColor,
-            secondary: secondaryColor),
-        useMaterial3: true,
-      ),
-      home: const LayOutTemplate(),
-    );
+        title: config.TITLE,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: primaryColor,
+              primary: primaryColor,
+              secondary: secondaryColor),
+          useMaterial3: true,
+        ),
+        home: const LayOutTemplate() //const LayOutTemplate(),
+        );
   }
 }
