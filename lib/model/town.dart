@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:heat_is_on_flutter/constants/config.dart' as config;
 // ignore_for_file: non_constant_identifier_names
 
 class AbilityPoints {
@@ -14,6 +15,15 @@ class AbilityPoints {
     required this.society,
     required this.health,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nature': nature,
+      'ecocomy': ecocomy,
+      'society': society,
+      'health': health,
+    };
+  }
 }
 
 class Town {
@@ -37,6 +47,84 @@ class Town {
     required this.heatwave,
     required this.biodiversity,
   });
+
+  //add fromJson and toJson methods
+  factory Town.fromJson(Map<String, dynamic> json) {
+    return Town(
+      id: json['id'],
+      name: json['name'],
+      effortPoints: json['effortPoints'],
+      bushFire: AbilityPoints(
+        nature: json['bushFire']['nature'],
+        ecocomy: json['bushFire']['ecocomy'],
+        society: json['bushFire']['society'],
+        health: json['bushFire']['health'],
+      ),
+      flood: AbilityPoints(
+        nature: json['flood']['nature'],
+        ecocomy: json['flood']['ecocomy'],
+        society: json['flood']['society'],
+        health: json['flood']['health'],
+      ),
+      stormSurge: AbilityPoints(
+        nature: json['stormSurge']['nature'],
+        ecocomy: json['stormSurge']['ecocomy'],
+        society: json['stormSurge']['society'],
+        health: json['stormSurge']['health'],
+      ),
+      heatwave: AbilityPoints(
+        nature: json['heatwave']['nature'],
+        ecocomy: json['heatwave']['ecocomy'],
+        society: json['heatwave']['society'],
+        health: json['heatwave']['health'],
+      ),
+      biodiversity: AbilityPoints(
+        nature: json['biodiversity']['nature'],
+        ecocomy: json['biodiversity']['ecocomy'],
+        society: json['biodiversity']['society'],
+        health: json['biodiversity']['health'],
+      ),
+    );
+  }
+
+  //add a toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'effortPoints': effortPoints,
+      'bushFire': {
+        'nature': bushFire.nature,
+        'ecocomy': bushFire.ecocomy,
+        'society': bushFire.society,
+        'health': bushFire.health,
+      },
+      'flood': {
+        'nature': flood.nature,
+        'ecocomy': flood.ecocomy,
+        'society': flood.society,
+        'health': flood.health,
+      },
+      'stormSurge': {
+        'nature': stormSurge.nature,
+        'ecocomy': stormSurge.ecocomy,
+        'society': stormSurge.society,
+        'health': stormSurge.health,
+      },
+      'heatwave': {
+        'nature': heatwave.nature,
+        'ecocomy': heatwave.ecocomy,
+        'society': heatwave.society,
+        'health': heatwave.health,
+      },
+      'biodiversity': {
+        'nature': biodiversity.nature,
+        'ecocomy': biodiversity.ecocomy,
+        'society': biodiversity.society,
+        'health': biodiversity.health,
+      },
+    };
+  }
 }
 
 //add a class townModel extended with changeNotifier to connect with the firebase
@@ -45,70 +133,18 @@ class TownModel extends ChangeNotifier {
   final CollectionReference _townCollection =
       FirebaseFirestore.instance.collection('towns');
   List<Town> _towns = [];
+  bool isLoading = false;
 
   List<Town> get towns => _towns;
-  //create two example towns
-  // final Town town1 = Town(
-  //   id: '1',
-  //   name: 'Town 1',
-  //   effortPoints: 0,
-  //   bushFire: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  //   flood: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  //   stormSurge: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  //   heatwave: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  //   biodiversity: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  // );
-  // final Town town2 = Town(
-  //   id: '2',
-  //   name: 'Town 2',
-  //   effortPoints: 0,
-  //   bushFire: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  //   flood: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  //   stormSurge: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  //   heatwave: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  //   biodiversity: AbilityPoints(nature: 0, ecocomy: 0, society: 0, health: 0),
-  // );
 
   Future<void> fetchTowns() async {
+    isLoading = true;
     final QuerySnapshot snapshot = await _townCollection.get();
     _towns = snapshot.docs.map((DocumentSnapshot doc) {
       final data = doc.data() as Map<String, dynamic>;
-      return Town(
-        id: doc.id,
-        name: data['name'],
-        effortPoints: data['effortPoints'],
-        bushFire: AbilityPoints(
-          nature: data['bushFire']['nature'],
-          ecocomy: data['bushFire']['ecocomy'],
-          society: data['bushFire']['society'],
-          health: data['bushFire']['health'],
-        ),
-        flood: AbilityPoints(
-          nature: data['flood']['nature'],
-          ecocomy: data['flood']['ecocomy'],
-          society: data['flood']['society'],
-          health: data['flood']['health'],
-        ),
-        stormSurge: AbilityPoints(
-          nature: data['stormSurge']['nature'],
-          ecocomy: data['stormSurge']['ecocomy'],
-          society: data['stormSurge']['society'],
-          health: data['stormSurge']['health'],
-        ),
-        heatwave: AbilityPoints(
-          nature: data['heatwave']['nature'],
-          ecocomy: data['heatwave']['ecocomy'],
-          society: data['heatwave']['society'],
-          health: data['heatwave']['health'],
-        ),
-        biodiversity: AbilityPoints(
-          nature: data['biodiversity']['nature'],
-          ecocomy: data['biodiversity']['ecocomy'],
-          society: data['biodiversity']['society'],
-          health: data['biodiversity']['health'],
-        ),
-      );
+      return Town.fromJson(data);
     }).toList();
+    isLoading = false;
     notifyListeners();
   }
 
@@ -119,77 +155,50 @@ class TownModel extends ChangeNotifier {
 
   //add a method to update the town
   Future<void> updateTown(Town town) async {
-    await _townCollection.doc(town.id).update({
-      'effortPoints': town.effortPoints,
-      'bushFire': {
-        'nature': town.bushFire.nature,
-        'ecocomy': town.bushFire.ecocomy,
-        'society': town.bushFire.society,
-        'health': town.bushFire.health,
-      },
-      'flood': {
-        'nature': town.flood.nature,
-        'ecocomy': town.flood.ecocomy,
-        'society': town.flood.society,
-        'health': town.flood.health,
-      },
-      'stormSurge': {
-        'nature': town.stormSurge.nature,
-        'ecocomy': town.stormSurge.ecocomy,
-        'society': town.stormSurge.society,
-        'health': town.stormSurge.health,
-      },
-      'heatwave': {
-        'nature': town.heatwave.nature,
-        'ecocomy': town.heatwave.ecocomy,
-        'society': town.heatwave.society,
-        'health': town.heatwave.health,
-      },
-      'biodiversity': {
-        'nature': town.biodiversity.nature,
-        'ecocomy': town.biodiversity.ecocomy,
-        'society': town.biodiversity.society,
-        'health': town.biodiversity.health,
-      },
-    });
+    final DocumentReference docRef = _townCollection.doc(town.id);
+    await docRef.update(town.toJson());
+    await fetchTowns();
     notifyListeners();
   }
 
   //add a method to reset the town
-  Future<void> resetTown(Town town) async {
-    await _townCollection.doc(town.id).update({
-      'effortPoints': 0,
-      'bushFire': {
-        'nature': 0,
-        'ecocomy': 0,
-        'society': 0,
-        'health': 0,
-      },
-      'flood': {
-        'nature': 0,
-        'ecocomy': 0,
-        'society': 0,
-        'health': 0,
-      },
-      'stormSurge': {
-        'nature': 0,
-        'ecocomy': 0,
-        'society': 0,
-        'health': 0,
-      },
-      'heatwave': {
-        'nature': 0,
-        'ecocomy': 0,
-        'society': 0,
-        'health': 0,
-      },
-      'biodiversity': {
-        'nature': 0,
-        'ecocomy': 0,
-        'society': 0,
-        'health': 0,
-      },
-    });
+  Future<void> resetTowns() async {
+    final configTowns = [
+      config.town1,
+      config.town2,
+      config.town3,
+      config.town4,
+      config.town5,
+    ];
+
+    for (var configTown in configTowns) {
+      final town = Town.fromJson(configTown);
+      await _townCollection.doc(town.id).set(town.toJson());
+    }
+
+    await fetchTowns();
     notifyListeners();
+  }
+
+  //add a method to add the town
+  Future<void> addOrUpdateTown(Town town) async {
+    final DocumentReference docRef = _townCollection.doc(town.id);
+    final DocumentSnapshot docSnapshot = await docRef.get();
+
+    if (docSnapshot.exists) {
+      // If the document exists, update it
+      await docRef.update(town.toJson());
+    } else {
+      // If the document doesn't exist, create a new one with the given ID
+      await docRef.set(town.toJson());
+    }
+    await fetchTowns();
+    notifyListeners();
+  }
+
+  // Add a new method to check if a town with a given ID exists
+  Future<bool> townExists(String id) async {
+    final DocumentSnapshot docSnapshot = await _townCollection.doc(id).get();
+    return docSnapshot.exists;
   }
 }

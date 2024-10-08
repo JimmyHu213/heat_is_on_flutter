@@ -1,39 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:heat_is_on_flutter/constants/app_colors.dart';
+import 'package:heat_is_on_flutter/model/town.dart';
 import 'package:heat_is_on_flutter/widgets/pie_chart_template.dart';
+import 'package:provider/provider.dart';
+import 'package:heat_is_on_flutter/constants/app_colors.dart';
+import 'dart:math' as math;
 
 class PieChartsView extends StatelessWidget {
   PieChartsView({super.key});
 
-  List<PieChartSectionData> getSections() {
+  final List<String> aspects = ['nature', 'ecocomy', 'society', 'health'];
+  final List<String> hazards = [
+    'bushFire',
+    'flood',
+    'stormSurge',
+    'heatwave',
+    'biodiversity'
+  ];
+
+  final double titleFontSize = 12.0;
+
+  List<PieChartSectionData> getSections(Town town) {
     final colors = [
-      heatwaveColor2,
-      stormSurgeColor2,
-      floodColor2,
-      biohazardColor2,
       bushFireColor2,
+      floodColor2,
+      stormSurgeColor2,
+      heatwaveColor2,
+      biohazardColor2,
     ];
 
-    return List.generate(20, (i) {
-      //final isTouched = i == 2;
-      final fontSize = 10.0;
-      final radius = 100.0;
-      //final widgetSize = isTouched ? 55.0 : 40.0;
-      final color = colors[i ~/ 4];
+    List<PieChartSectionData> sections = [];
 
-      return PieChartSectionData(
-        color: color,
-        value: 1,
-        title: '${i + 1}',
-        radius: radius,
-        titleStyle: TextStyle(
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
-          color: const Color(0xffffffff),
-        ),
-      );
-    });
+    for (int i = 0; i < hazards.length; i++) {
+      final hazard = hazards[i];
+      final hazardPoints = getHazardPoints(town, hazard);
+      final color = colors[i];
+
+      for (int j = 0; j < aspects.length; j++) {
+        final aspect = aspects[j];
+        final points = hazardPoints[aspect] ?? 0;
+
+        sections.add(
+          PieChartSectionData(
+            color: color,
+            value: 1,
+            title: '',
+            badgeWidget: Text(
+              aspect[0].toUpperCase(),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 8,
+              ),
+            ),
+            badgePositionPercentageOffset: 0.55,
+            radius: points * 1.25,
+            showTitle: false,
+          ),
+        );
+      }
+    }
+
+    return sections;
+  }
+
+  Map<String, dynamic> getHazardPoints(Town town, String hazard) {
+    switch (hazard) {
+      case 'bushFire':
+        return town.bushFire.toJson();
+      case 'flood':
+        return town.flood.toJson();
+      case 'stormSurge':
+        return town.stormSurge.toJson();
+      case 'heatwave':
+        return town.heatwave.toJson();
+      case 'biodiversity':
+        return town.biodiversity.toJson();
+      default:
+        throw ArgumentError('Unknown hazard: $hazard');
+    }
   }
 
   final townColors = [
@@ -46,16 +90,21 @@ class PieChartsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(
-        5,
-        (i) => CustomPieChart(
-          sections: getSections(),
-          title: 'Town ${i + 1}',
-          townColor: townColors[i],
-        ),
-      ),
+    return Consumer<TownModel>(
+      builder: (context, townModel, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(
+            townModel.towns.length,
+            (i) => CustomPieChart(
+              sections: getSections(townModel.towns[i]),
+              title: townModel.towns[i].name,
+              townColor: i < townColors.length ? townColors[i] : Colors.grey,
+              titleFontSize: titleFontSize,
+            ),
+          ),
+        );
+      },
     );
   }
 }

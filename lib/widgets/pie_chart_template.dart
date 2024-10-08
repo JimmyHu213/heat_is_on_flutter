@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:heat_is_on_flutter/constants/app_colors.dart';
+import 'dart:math' as math;
 
 class CustomPieChart extends StatelessWidget {
   final List<PieChartSectionData> sections;
   final String title;
   final Color townColor;
+  final double titleFontSize;
 
-  CustomPieChart(
-      {required this.sections, required this.title, required this.townColor});
+  const CustomPieChart({
+    super.key,
+    required this.sections,
+    required this.title,
+    required this.townColor,
+    this.titleFontSize = 8,
+  });
 
   @override
   Widget build(BuildContext context) {
     const double iconSize = 30.0;
-    const double fontSize = 20.0;
 
     return Card(
       color: Colors.grey[100],
@@ -21,7 +26,6 @@ class CustomPieChart extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      //color: primaryColor,
       child: Column(
         children: [
           Stack(
@@ -30,13 +34,17 @@ class CustomPieChart extends StatelessWidget {
               SizedBox(
                 width: 280,
                 height: 280,
-                child: PieChart(
-                  PieChartData(
-                    sections: sections,
-                    centerSpaceRadius: 0,
-                    sectionsSpace: 2,
-                    startDegreeOffset: -90,
-                  ),
+                child: Stack(
+                  children: [
+                    PieChart(
+                      PieChartData(
+                        sections: sections,
+                        centerSpaceRadius: 0,
+                        sectionsSpace: 2,
+                        startDegreeOffset: -90,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               // Add custom icons
@@ -60,8 +68,8 @@ class CustomPieChart extends StatelessWidget {
               const Positioned(
                 right: 0,
                 bottom: 80,
-                child: Icon(Icons.cloud,
-                    color: Colors.grey, size: iconSize), //storm surge
+                child: Icon(Icons.waves_outlined,
+                    color: Colors.blueAccent, size: iconSize), //storm surge
               ),
               const Positioned(
                   bottom: 80,
