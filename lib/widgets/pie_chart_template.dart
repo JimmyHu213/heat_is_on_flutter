@@ -62,7 +62,7 @@ class CustomPieChart extends StatelessWidget {
               ),
               const Positioned(
                 bottom: 0,
-                child: Icon(Icons.water_drop,
+                child: Icon(Icons.flood_outlined,
                     color: Colors.blue, size: iconSize), //water
               ),
               const Positioned(

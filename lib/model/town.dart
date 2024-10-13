@@ -1,51 +1,86 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/config.dart' as config;
-// ignore_for_file: non_constant_identifier_names
+import 'package:heat_is_on_flutter/model/card.dart';
+import 'package:heat_is_on_flutter/model/hazard.dart';
 
+// ignore_for_file: non_constant_identifier_names
 class AbilityPoints {
-  final int nature;
-  final int ecocomy;
-  final int society;
-  final int health;
+  int _nature;
+  int _economy;
+  int _society;
+  int _health;
 
   AbilityPoints({
-    required this.nature,
-    required this.ecocomy,
-    required this.society,
-    required this.health,
-  });
+    required int nature,
+    required int economy,
+    required int society,
+    required int health,
+  })  : _nature = _clamp(nature),
+        _economy = _clamp(economy),
+        _society = _clamp(society),
+        _health = _clamp(health);
+
+  static int _clamp(int value) {
+    return value.clamp(0, 100);
+  }
+
+  int get nature => _nature;
+  int get economy => _economy;
+  int get society => _society;
+  int get health => _health;
+
+  set nature(int value) {
+    _nature = _clamp(value);
+  }
+
+  set economy(int value) {
+    _economy = _clamp(value);
+  }
+
+  set society(int value) {
+    _society = _clamp(value);
+  }
+
+  set health(int value) {
+    _health = _clamp(value);
+  }
 
   Map<String, dynamic> toJson() {
     return {
-      'nature': nature,
-      'ecocomy': ecocomy,
-      'society': society,
-      'health': health,
+      'nature': _nature,
+      'economy': _economy,
+      'society': _society,
+      'health': _health,
     };
+  }
+
+  @override
+  String toString() {
+    return 'AbilityPoints{nature: $_nature, economy: $_economy, society: $_society, health: $_health}';
   }
 }
 
 class Town {
   final String id;
-  final String name;
-  final int effortPoints;
-  final AbilityPoints bushFire;
-  final AbilityPoints flood;
-  final AbilityPoints stormSurge;
-  final AbilityPoints heatwave;
-  final AbilityPoints biodiversity;
+  String name;
+  int effortPoints;
+  AbilityPoints bushfire;
+  AbilityPoints flood;
+  AbilityPoints stormSurge;
+  AbilityPoints heatwave;
+  AbilityPoints biohazard;
 
 // add requried field to all the fields
   Town({
     required this.id,
     required this.name,
     required this.effortPoints,
-    required this.bushFire,
+    required this.bushfire,
     required this.flood,
     required this.stormSurge,
     required this.heatwave,
-    required this.biodiversity,
+    required this.biohazard,
   });
 
   //add fromJson and toJson methods
@@ -54,35 +89,35 @@ class Town {
       id: json['id'],
       name: json['name'],
       effortPoints: json['effortPoints'],
-      bushFire: AbilityPoints(
-        nature: json['bushFire']['nature'],
-        ecocomy: json['bushFire']['ecocomy'],
-        society: json['bushFire']['society'],
-        health: json['bushFire']['health'],
+      bushfire: AbilityPoints(
+        nature: json['bushfire']['nature'],
+        economy: json['bushfire']['economy'],
+        society: json['bushfire']['society'],
+        health: json['bushfire']['health'],
       ),
       flood: AbilityPoints(
         nature: json['flood']['nature'],
-        ecocomy: json['flood']['ecocomy'],
+        economy: json['flood']['economy'],
         society: json['flood']['society'],
         health: json['flood']['health'],
       ),
       stormSurge: AbilityPoints(
         nature: json['stormSurge']['nature'],
-        ecocomy: json['stormSurge']['ecocomy'],
+        economy: json['stormSurge']['economy'],
         society: json['stormSurge']['society'],
         health: json['stormSurge']['health'],
       ),
       heatwave: AbilityPoints(
         nature: json['heatwave']['nature'],
-        ecocomy: json['heatwave']['ecocomy'],
+        economy: json['heatwave']['economy'],
         society: json['heatwave']['society'],
         health: json['heatwave']['health'],
       ),
-      biodiversity: AbilityPoints(
-        nature: json['biodiversity']['nature'],
-        ecocomy: json['biodiversity']['ecocomy'],
-        society: json['biodiversity']['society'],
-        health: json['biodiversity']['health'],
+      biohazard: AbilityPoints(
+        nature: json['biohazard']['nature'],
+        economy: json['biohazard']['economy'],
+        society: json['biohazard']['society'],
+        health: json['biohazard']['health'],
       ),
     );
   }
@@ -93,43 +128,47 @@ class Town {
       'id': id,
       'name': name,
       'effortPoints': effortPoints,
-      'bushFire': {
-        'nature': bushFire.nature,
-        'ecocomy': bushFire.ecocomy,
-        'society': bushFire.society,
-        'health': bushFire.health,
+      'bushfire': {
+        'nature': bushfire.nature,
+        'economy': bushfire.economy,
+        'society': bushfire.society,
+        'health': bushfire.health,
       },
       'flood': {
         'nature': flood.nature,
-        'ecocomy': flood.ecocomy,
+        'economy': flood.economy,
         'society': flood.society,
         'health': flood.health,
       },
       'stormSurge': {
         'nature': stormSurge.nature,
-        'ecocomy': stormSurge.ecocomy,
+        'economy': stormSurge.economy,
         'society': stormSurge.society,
         'health': stormSurge.health,
       },
       'heatwave': {
         'nature': heatwave.nature,
-        'ecocomy': heatwave.ecocomy,
+        'economy': heatwave.economy,
         'society': heatwave.society,
         'health': heatwave.health,
       },
-      'biodiversity': {
-        'nature': biodiversity.nature,
-        'ecocomy': biodiversity.ecocomy,
-        'society': biodiversity.society,
-        'health': biodiversity.health,
+      'biohazard': {
+        'nature': biohazard.nature,
+        'economy': biohazard.economy,
+        'society': biohazard.society,
+        'health': biohazard.health,
       },
     };
+  }
+
+  @override
+  String toString() {
+    return 'Town{id: $id, name: $name, effortPoints: $effortPoints, bushfire: $bushfire, flood: $flood, stormSurge: $stormSurge, heatwave: $heatwave, biohazard: $biohazard}';
   }
 }
 
 //add a class townModel extended with changeNotifier to connect with the firebase
 class TownModel extends ChangeNotifier {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final CollectionReference _townCollection =
       FirebaseFirestore.instance.collection('towns');
   List<Town> _towns = [];
@@ -139,66 +178,163 @@ class TownModel extends ChangeNotifier {
 
   Future<void> fetchTowns() async {
     isLoading = true;
-    final QuerySnapshot snapshot = await _townCollection.get();
-    _towns = snapshot.docs.map((DocumentSnapshot doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      return Town.fromJson(data);
-    }).toList();
+    final snapshot = await _townCollection.get();
+    _towns = snapshot.docs
+        .map((doc) => Town.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
     isLoading = false;
     notifyListeners();
   }
 
-  //add a method to get the town by id
-  Town getTownById(String id) {
-    return _towns.firstWhere((Town town) => town.id == id);
-  }
+  Town getTownById(String id) => _towns.firstWhere((town) => town.id == id);
 
-  //add a method to update the town
   Future<void> updateTown(Town town) async {
-    final DocumentReference docRef = _townCollection.doc(town.id);
-    await docRef.update(town.toJson());
+    await _townCollection.doc(town.id).update(town.toJson());
     await fetchTowns();
-    notifyListeners();
   }
 
-  //add a method to reset the town
   Future<void> resetTowns() async {
-    final configTowns = [
+    for (var configTown in [
       config.town1,
       config.town2,
       config.town3,
       config.town4,
-      config.town5,
-    ];
-
-    for (var configTown in configTowns) {
-      final town = Town.fromJson(configTown);
+      config.town5
+    ]) {
+      var town = Town.fromJson(configTown);
       await _townCollection.doc(town.id).set(town.toJson());
     }
-
     await fetchTowns();
-    notifyListeners();
   }
 
-  //add a method to add the town
   Future<void> addOrUpdateTown(Town town) async {
-    final DocumentReference docRef = _townCollection.doc(town.id);
-    final DocumentSnapshot docSnapshot = await docRef.get();
-
-    if (docSnapshot.exists) {
-      // If the document exists, update it
-      await docRef.update(town.toJson());
-    } else {
-      // If the document doesn't exist, create a new one with the given ID
-      await docRef.set(town.toJson());
-    }
+    await _townCollection
+        .doc(town.id)
+        .set(town.toJson(), SetOptions(merge: true));
     await fetchTowns();
-    notifyListeners();
   }
 
-  // Add a new method to check if a town with a given ID exists
-  Future<bool> townExists(String id) async {
-    final DocumentSnapshot docSnapshot = await _townCollection.doc(id).get();
-    return docSnapshot.exists;
+  void applyAbility(String townId, GameCard card) {
+    final town = getTownById(townId);
+    final abilities = [
+      town.bushfire,
+      town.flood,
+      town.stormSurge,
+      town.heatwave,
+      town.biohazard
+    ];
+
+    if (['bushfire', 'flood', 'stormSurge', 'heatwave', 'biohazard']
+        .contains(card.type)) {
+      _updateAbility(
+          abilities[['bushfire', 'flood', 'stormSurge', 'heatwave', 'biohazard']
+              .indexOf(card.type)],
+          card);
+    } else {
+      abilities.forEach(
+          (ability) => _updateAbility(ability, card, onlyAspect: card.type));
+    }
+
+    updateTown(town);
+  }
+
+  void _updateAbility(AbilityPoints ability, GameCard card,
+      {String? onlyAspect}) {
+    if (onlyAspect == null || onlyAspect == 'nature')
+      ability.nature += card.nature;
+    if (onlyAspect == null || onlyAspect == 'economy')
+      ability.economy += card.economy;
+    if (onlyAspect == null || onlyAspect == 'society')
+      ability.society += card.society;
+    if (onlyAspect == null || onlyAspect == 'health')
+      ability.health += card.health;
+  }
+
+  void applyHazard(Hazard hazard) {
+    for (var town in towns) {
+      final ability = _getAbilityForHazard(town, hazard.id);
+      final zeroAspects = _getZeroAspects(ability);
+
+      _applyHazardToAbility(ability, hazard);
+
+      for (var aspect in zeroAspects) {
+        _applyPenaltyToOtherAbilities(town, aspect, hazard.id);
+      }
+    }
+    updateAllTowns(towns);
+  }
+
+  AbilityPoints _getAbilityForHazard(Town town, String hazardId) {
+    switch (hazardId) {
+      case 'bushfire':
+        return town.bushfire;
+      case 'flood':
+        return town.flood;
+      case 'stormSurge':
+        return town.stormSurge;
+      case 'heatwave':
+        return town.heatwave;
+      case 'biohazard':
+        return town.biohazard;
+      default:
+        throw ArgumentError('Invalid hazard ID');
+    }
+  }
+
+  List<String> _getZeroAspects(AbilityPoints ability) {
+    return ['nature', 'economy', 'society', 'health']
+        .where((aspect) => ability.toJson()[aspect] == 0)
+        .toList();
+  }
+
+  void _applyHazardToAbility(AbilityPoints ability, Hazard hazard) {
+    ability.nature -= hazard.nature;
+    ability.economy -= hazard.economy;
+    ability.society -= hazard.society;
+    ability.health -= hazard.health;
+  }
+
+  void _applyPenaltyToOtherAbilities(
+      Town town, String aspect, String excludeHazard) {
+    const int penalty = 5;
+    final abilities = [
+      town.bushfire,
+      town.flood,
+      town.stormSurge,
+      town.heatwave,
+      town.biohazard
+    ];
+    final hazardIds = [
+      'bushfire',
+      'flood',
+      'stormSurge',
+      'heatwave',
+      'biohazard'
+    ];
+
+    for (int i = 0; i < abilities.length; i++) {
+      if (hazardIds[i] != excludeHazard) {
+        switch (aspect) {
+          case 'nature':
+            abilities[i].nature -= penalty;
+            break;
+          case 'economy':
+            abilities[i].economy -= penalty;
+            break;
+          case 'society':
+            abilities[i].society -= penalty;
+            break;
+          case 'health':
+            abilities[i].health -= penalty;
+            break;
+        }
+      }
+    }
+  }
+
+  Future<void> updateAllTowns(List<Town> towns) async {
+    await Future.wait(towns
+        .map((town) => _townCollection.doc(town.id).update(town.toJson())));
+    await fetchTowns();
   }
 }

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/views/home/dash_board.dart';
-import 'package:heat_is_on_flutter/views/layout/header.dart';
 import 'package:heat_is_on_flutter/views/layout/mobile_page.dart';
 import 'package:heat_is_on_flutter/widgets/center_view.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
-import 'package:heat_is_on_flutter/constants/config.dart' as config;
+import 'package:heat_is_on_flutter/views/intro/intro_view.dart';
+import 'package:heat_is_on_flutter/views/controls/control_view.dart';
 
 class LayOutTemplate extends StatefulWidget {
-  const LayOutTemplate({super.key});
+  const LayOutTemplate({Key? key}) : super(key: key);
 
   @override
   State<LayOutTemplate> createState() => _LayOutTemplateState();
 }
 
 class _LayOutTemplateState extends State<LayOutTemplate> {
-  String _loadingMessage = 'Initializing...';
+  final String _loadingMessage = 'Initializing...';
 
   @override
   void initState() {
@@ -37,11 +37,11 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
         print('ID: ${town.id}');
         print('Name: ${town.name}');
         print('Effort Points: ${town.effortPoints}');
-        print('Bush Fire: ${town.bushFire.toJson()}');
+        print('Bush Fire: ${town.bushfire.toJson()}');
         print('Flood: ${town.flood.toJson()}');
         print('Storm Surge: ${town.stormSurge.toJson()}');
         print('Heatwave: ${town.heatwave.toJson()}');
-        print('Biodiversity: ${town.biodiversity.toJson()}');
+        print('Biohazard: ${town.biohazard.toJson()}');
         print('---');
       }
     } catch (e) {
@@ -59,39 +59,78 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
       builder: (context, townModel, child) {
         return Scaffold(
           backgroundColor: primaryColor,
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(250),
-            child: Header(),
-          ),
           body: townModel.isLoading
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(
-                        color: Colors.blue,
-                      ),
+                      CircularProgressIndicator(color: Colors.blue),
                       SizedBox(height: 20),
                       Text(_loadingMessage,
                           style: TextStyle(color: Colors.white)),
                     ],
                   ),
                 )
-              : ResponsiveBuilder(
-                  builder: (context, sizingInformation) {
-                    return SingleChildScrollView(
-                      child: SafeArea(
-                        child: CenterView(
-                          child: sizingInformation.deviceScreenType ==
-                                      DeviceScreenType.mobile ||
-                                  sizingInformation.deviceScreenType ==
-                                      DeviceScreenType.tablet
-                              ? MobilePage()
-                              : DashBoard(),
+              : CustomScrollView(
+                  slivers: <Widget>[
+                    SliverAppBar(
+                      floating: true,
+                      snap: true,
+                      pinned: false,
+                      expandedHeight: 250,
+                      actions: [
+                        IconButton(
+                          icon: const Icon(Icons.info_outline,
+                              size: 40, color: Colors.white),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const IntroView()),
+                            );
+                          },
+                          tooltip: 'Information',
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.person_2_outlined,
+                            size: 40,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ControlView()),
+                            );
+                          },
+                          tooltip: 'Admin Control',
+                        ),
+                      ],
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Image.asset(
+                          'assets/images/web-banner.png',
+                          fit: BoxFit.fill,
                         ),
                       ),
-                    );
-                  },
+                    ),
+                    SliverToBoxAdapter(
+                      child: ResponsiveBuilder(
+                        builder: (context, sizingInformation) {
+                          return SafeArea(
+                            child: CenterView(
+                              child: sizingInformation.deviceScreenType ==
+                                          DeviceScreenType.mobile ||
+                                      sizingInformation.deviceScreenType ==
+                                          DeviceScreenType.tablet
+                                  ? MobilePage()
+                                  : DashBoard(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
         );
       },

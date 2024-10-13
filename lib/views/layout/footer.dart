@@ -7,25 +7,39 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160,
+      height: 200,
       width: double.infinity,
-      color: primaryColorLight,
+      color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        padding: const EdgeInsets.only(top: 20, bottom: 8, left: 20, right: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '© 2024 Heat is On',
-              style: TextStyle(color: Colors.white),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset('assets/images/utas.png', height: 60),
+                Image.asset('assets/images/cms.png', height: 60),
+                Image.asset('assets/images/est.png', height: 60),
+                //TODO Image.asset('assets/images/coh.svg', height: 60),
+              ],
             ),
-            Text(
-              'Privacy Policy',
-              style: TextStyle(color: Colors.white),
-            ),
-            Text(
-              'Terms of Service',
-              style: TextStyle(color: Colors.white),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  '© 2024 Heat is On',
+                  style: TextStyle(color: primaryColor),
+                ),
+                Text(
+                  'Privacy Policy',
+                  style: TextStyle(color: primaryColor),
+                ),
+                Text(
+                  'Terms of Service',
+                  style: TextStyle(color: primaryColor),
+                ),
+              ],
             ),
           ],
         ),

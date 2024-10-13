@@ -26,16 +26,17 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => TownModel())],
       child: MaterialApp(
-          title: config.TITLE,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: primaryColor,
-                primary: primaryColor,
-                secondary: secondaryColor),
-            useMaterial3: true,
-          ),
-          home: const ControlView() //const LayOutTemplate(),
-          ),
+        title: config.TITLE,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: primaryColor,
+              primary: primaryColor,
+              secondary: secondaryColor),
+          useMaterial3: true,
+        ),
+        //home: const ControlView()
+        home: const LayOutTemplate(),
+      ),
     );
   }
 }

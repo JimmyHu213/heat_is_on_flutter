@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:heat_is_on_flutter/model/town.dart';
+import 'package:provider/provider.dart';
 
 class TableView extends StatelessWidget {
   TableView({super.key});
@@ -13,73 +15,64 @@ class TableView extends StatelessWidget {
     'Budget'
   ];
 
-  final List<String> evenLog = [
-    'Event Log',
-    'Bushfire',
-    'Storm Surge',
-    'Biohazard',
-    'Heatwave',
-    'Flood',
-    ''
-  ];
-
-  final List<String> towns = [
-    'Town1',
-    'Town2',
-    'Town3',
-    'Town4',
-    'Town5',
-  ];
+  final List<String> evenLog = ['Event Log', '', '', '', '', '', ''];
 
   @override
   Widget build(BuildContext context) {
-    final double fontSize = 20;
+    const double fontSize = 20;
+    const textStyle = TextStyle(color: Colors.white, fontSize: 16);
 
-    return SizedBox(
-        width: double.infinity,
-        height: 600,
-        child: DataTable(
-          dataRowMaxHeight: 80,
-          headingRowColor: MaterialStateProperty.all(Colors.grey),
-          border: TableBorder.all(
-              color: Colors.white,
-              width: 2,
-              style: BorderStyle.solid,
-              borderRadius: BorderRadius.circular(20)),
-          columns: List<DataColumn>.generate(
-              tableHeaders.length,
-              (index) => DataColumn(
-                    label: Text(
-                      tableHeaders[index],
-                      style: TextStyle(
-                          fontSize: fontSize, fontWeight: FontWeight.bold),
-                    ),
-                  )),
-          rows: [
-            DataRow(
-                color: MaterialStateProperty.all(Colors.black54),
-                cells: List<DataCell>.generate(
-                    tableHeaders.length,
-                    (index) => DataCell(Text(
-                          evenLog[index],
-                          style: TextStyle(color: Colors.white),
-                        )))),
-            ...List<DataRow>.generate(
-                towns.length,
-                (index) => DataRow(cells: [
-                      DataCell(Text(
-                        towns[index],
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                      )),
-                      ...List<DataCell>.generate(
-                          tableHeaders.length - 1,
-                          (index) => DataCell(
-                                Text(''),
-                              ))
-                    ])),
-          ],
-        ));
+    return Consumer<TownModel>(builder: (context, townModel, child) {
+      return SizedBox(
+          width: double.infinity,
+          height: 600,
+          child: DataTable(
+            dataRowMaxHeight: 80,
+            headingRowColor: MaterialStateProperty.all(Colors.grey),
+            border: TableBorder.all(
+                color: Colors.white,
+                width: 2,
+                style: BorderStyle.solid,
+                borderRadius: BorderRadius.circular(20)),
+            columns: List<DataColumn>.generate(
+                tableHeaders.length,
+                (index) => DataColumn(
+                      label: Text(
+                        tableHeaders[index],
+                        style: TextStyle(
+                            fontSize: fontSize, fontWeight: FontWeight.bold),
+                      ),
+                    )),
+            rows: [
+              DataRow(
+                  color: MaterialStateProperty.all(Colors.black54),
+                  cells: List<DataCell>.generate(tableHeaders.length, (index) {
+                    return DataCell(Text(
+                      evenLog[index],
+                      style: textStyle,
+                    ));
+                  })),
+              ...List<DataRow>.generate(
+                  townModel.towns.length,
+                  (index) => DataRow(cells: [
+                        DataCell(Text(
+                          townModel.towns[index].name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        )),
+                        ...List<DataCell>.generate(
+                            tableHeaders.length - 2,
+                            (index) => DataCell(
+                                  Text(''),
+                                )),
+                        DataCell(Text(
+                          townModel.towns[index].effortPoints.toString(),
+                          style: textStyle,
+                        )),
+                      ])),
+            ],
+          ));
+    });
   }
 }

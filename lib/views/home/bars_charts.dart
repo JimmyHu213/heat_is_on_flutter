@@ -1,12 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
+import 'package:heat_is_on_flutter/model/town.dart';
 import 'package:heat_is_on_flutter/widgets/bar_chart_template.dart';
+import 'package:heat_is_on_flutter/constants/config.dart' as config;
+import 'package:provider/provider.dart';
 
 class BarChartsView extends StatelessWidget {
   BarChartsView({super.key});
-
-  final double barWidth = 22.0;
 
   final colors1 = [
     natureColor,
@@ -24,6 +25,7 @@ class BarChartsView extends StatelessWidget {
   ];
 
   List<BarChartGroupData> getBarGroups(count, List<Color> colors) {
+    const double barWidth = 22.0;
     return List.generate(
         count,
         (i) => BarChartGroupData(
@@ -43,31 +45,30 @@ class BarChartsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final barGroups1 = getBarGroups(4, colors1);
     final barGroups2 = getBarGroups(5, colors2);
-    final xAxisLabels = [
-      'Nature',
-      'Economy',
-      'Society',
-      'Health',
-    ];
-    final xAxisLabels2 = ['Town1', 'Town2', 'Town3', 'Town4', 'Town5'];
-    return SizedBox(
-      width: double.infinity,
-      height: 400,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CustomBarChart(
-            barGroups: barGroups1,
-            xAxisLabels: xAxisLabels,
-          ),
-          SizedBox(width: 20),
-          CustomBarChart(
-            barGroups: barGroups2,
-            xAxisLabels: xAxisLabels2,
-          ),
-        ],
-      ),
-    );
+    final provider = Provider.of<TownModel>(context);
+    final towns = provider.towns;
+    final xAxisLabels2 = towns.map((town) => town.name).toList();
+
+    return Consumer<TownModel>(builder: (context, townModel, child) {
+      return SizedBox(
+        width: double.infinity,
+        height: 400,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomBarChart(
+              barGroups: barGroups1,
+              xAxisLabels: config.aspectsTitle,
+            ),
+            SizedBox(width: 20),
+            CustomBarChart(
+              barGroups: barGroups2,
+              xAxisLabels: xAxisLabels2,
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

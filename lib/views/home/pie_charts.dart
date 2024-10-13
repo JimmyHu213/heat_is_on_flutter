@@ -4,29 +4,28 @@ import 'package:heat_is_on_flutter/model/town.dart';
 import 'package:heat_is_on_flutter/widgets/pie_chart_template.dart';
 import 'package:provider/provider.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
-import 'dart:math' as math;
 
 class PieChartsView extends StatelessWidget {
   PieChartsView({super.key});
 
-  final List<String> aspects = ['nature', 'ecocomy', 'society', 'health'];
+  final List<String> aspects = ['nature', 'economy', 'society', 'health'];
   final List<String> hazards = [
-    'bushFire',
+    'bushfire',
     'flood',
     'stormSurge',
     'heatwave',
-    'biodiversity'
+    'biohazard',
   ];
 
   final double titleFontSize = 12.0;
 
   List<PieChartSectionData> getSections(Town town) {
     final colors = [
-      bushFireColor2,
-      floodColor2,
-      stormSurgeColor2,
-      heatwaveColor2,
-      biohazardColor2,
+      heatwaveColor1,
+      stormSurgeColor1,
+      floodColor1,
+      biohazardColor1,
+      bushfireColor1,
     ];
 
     List<PieChartSectionData> sections = [];
@@ -44,17 +43,21 @@ class PieChartsView extends StatelessWidget {
           PieChartSectionData(
             color: color,
             value: 1,
-            title: '',
+            title: points.toString(),
+            titleStyle: TextStyle(
+              color: Colors.grey[700],
+              fontSize: 8,
+            ),
             badgeWidget: Text(
               aspect[0].toUpperCase(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 8,
               ),
             ),
-            badgePositionPercentageOffset: 0.55,
+            badgePositionPercentageOffset: 0.65,
+            titlePositionPercentageOffset: 1.05,
             radius: points * 1.25,
-            showTitle: false,
           ),
         );
       }
@@ -65,16 +68,16 @@ class PieChartsView extends StatelessWidget {
 
   Map<String, dynamic> getHazardPoints(Town town, String hazard) {
     switch (hazard) {
-      case 'bushFire':
-        return town.bushFire.toJson();
+      case 'bushfire':
+        return town.bushfire.toJson();
       case 'flood':
         return town.flood.toJson();
       case 'stormSurge':
         return town.stormSurge.toJson();
       case 'heatwave':
         return town.heatwave.toJson();
-      case 'biodiversity':
-        return town.biodiversity.toJson();
+      case 'biohazard':
+        return town.biohazard.toJson();
       default:
         throw ArgumentError('Unknown hazard: $hazard');
     }

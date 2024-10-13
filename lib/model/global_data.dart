@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heat_is_on_flutter/model/hazard.dart';
 
 class GlobalRound {
   static int round = 0;
@@ -21,4 +22,16 @@ class GlobalRound {
       resetRound();
     }
   }
+}
+
+class EventLog {
+  Map<int, List<Hazard>> events;
+
+  EventLog({
+    required this.events,
+  });
+}
+
+class GameLog {
+  static TextEditingController logController = TextEditingController();
 }
