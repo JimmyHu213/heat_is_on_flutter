@@ -66,8 +66,15 @@ class TableView extends StatelessWidget {
                             (index) => DataCell(
                                   Text(''),
                                 )),
-                        DataCell(Text(
-                          townModel.towns[index].effortPoints.toString(),
+                        DataCell(TextField(
+                          controller: TextEditingController(
+                              text: townModel.towns[index].effortPoints
+                                  .toString()),
+                          onSubmitted: (value) {
+                            var town = townModel.towns[index];
+                            town.effortPoints = int.parse(value);
+                            townModel.updateTown(townModel.towns[index]);
+                          },
                           style: textStyle,
                         )),
                       ])),

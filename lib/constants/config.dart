@@ -9,7 +9,7 @@ const town1 = {
   "bushfire": {"nature": 40, "economy": 40, "society": 40, "health": 40},
   "flood": {"nature": 80, "economy": 80, "society": 80, "health": 80},
   "stormSurge": {"nature": 80, "economy": 80, "society": 80, "health": 80},
-  "heatwave": {"nature": 80, "economy": 80, "society": 80, "health": 80},
+  "heatwave": {"nature": 60, "economy": 60, "society": 60, "health": 60},
   "biohazard": {"nature": 80, "economy": 80, "society": 80, "health": 80}
 };
 
@@ -17,7 +17,7 @@ const town2 = {
   "id": "2",
   "name": "Town 2",
   "effortPoints": 100,
-  "bushfire": {"nature": 80, "economy": 80, "society": 80, "health": 80},
+  "bushfire": {"nature": 60, "economy": 60, "society": 60, "health": 60},
   "flood": {"nature": 40, "economy": 40, "society": 40, "health": 40},
   "stormSurge": {"nature": 80, "economy": 80, "society": 80, "health": 80},
   "heatwave": {"nature": 80, "economy": 80, "society": 80, "health": 80},
@@ -32,7 +32,7 @@ const town3 = {
   "flood": {"nature": 80, "economy": 80, "society": 80, "health": 80},
   "stormSurge": {"nature": 40, "economy": 40, "society": 40, "health": 40},
   "heatwave": {"nature": 80, "economy": 80, "society": 80, "health": 80},
-  "biohazard": {"nature": 80, "economy": 80, "society": 80, "health": 80}
+  "biohazard": {"nature": 60, "economy": 60, "society": 60, "health": 60}
 };
 
 const town4 = {
@@ -40,7 +40,7 @@ const town4 = {
   "name": "Town 4",
   "effortPoints": 100,
   "bushfire": {"nature": 80, "economy": 80, "society": 80, "health": 80},
-  "flood": {"nature": 80, "economy": 80, "society": 80, "health": 80},
+  "flood": {"nature": 60, "economy": 60, "society": 60, "health": 60},
   "stormSurge": {"nature": 80, "economy": 80, "society": 80, "health": 80},
   "heatwave": {"nature": 40, "economy": 40, "society": 40, "health": 40},
   "biohazard": {"nature": 80, "economy": 80, "society": 80, "health": 80}
@@ -52,7 +52,7 @@ const town5 = {
   "effortPoints": 100,
   "bushfire": {"nature": 80, "economy": 80, "society": 80, "health": 80},
   "flood": {"nature": 80, "economy": 80, "society": 80, "health": 80},
-  "stormSurge": {"nature": 80, "economy": 80, "society": 80, "health": 80},
+  "stormSurge": {"nature": 60, "economy": 60, "society": 60, "health": 60},
   "heatwave": {"nature": 80, "economy": 80, "society": 80, "health": 80},
   "biohazard": {"nature": 40, "economy": 40, "society": 40, "health": 40}
 };

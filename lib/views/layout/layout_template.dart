@@ -74,8 +74,6 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
               : CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
-                      floating: true,
-                      snap: true,
                       pinned: false,
                       expandedHeight: 250,
                       actions: [

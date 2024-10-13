@@ -283,7 +283,7 @@ class TownModel extends ChangeNotifier {
 
   List<String> _getZeroAspects(AbilityPoints ability) {
     return ['nature', 'economy', 'society', 'health']
-        .where((aspect) => ability.toJson()[aspect] == 0)
+        .where((aspect) => ability.toJson()[aspect] < 20)
         .toList();
   }
 
@@ -296,7 +296,7 @@ class TownModel extends ChangeNotifier {
 
   void _applyPenaltyToOtherAbilities(
       Town town, String aspect, String excludeHazard) {
-    const int penalty = 5;
+    const int penalty = 10;
     final abilities = [
       town.bushfire,
       town.flood,

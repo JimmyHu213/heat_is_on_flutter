@@ -4,28 +4,23 @@ import 'package:heat_is_on_flutter/model/town.dart';
 import 'package:heat_is_on_flutter/widgets/pie_chart_template.dart';
 import 'package:provider/provider.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
+import 'package:heat_is_on_flutter/constants/config.dart' as config;
 
 class PieChartsView extends StatelessWidget {
   PieChartsView({super.key});
 
-  final List<String> aspects = ['nature', 'economy', 'society', 'health'];
-  final List<String> hazards = [
-    'bushfire',
-    'flood',
-    'stormSurge',
-    'heatwave',
-    'biohazard',
-  ];
+  final List<String> aspects = config.aspectIds;
+  final List<String> hazards = config.hazardIds;
 
   final double titleFontSize = 12.0;
 
   List<PieChartSectionData> getSections(Town town) {
     final colors = [
-      heatwaveColor1,
-      stormSurgeColor1,
-      floodColor1,
-      biohazardColor1,
       bushfireColor1,
+      floodColor1,
+      stormSurgeColor1,
+      heatwaveColor1,
+      biohazardColor1,
     ];
 
     List<PieChartSectionData> sections = [];
@@ -48,15 +43,17 @@ class PieChartsView extends StatelessWidget {
               color: Colors.grey[700],
               fontSize: 8,
             ),
-            badgeWidget: Text(
-              aspect[0].toUpperCase(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 8,
-              ),
-            ),
-            badgePositionPercentageOffset: 0.65,
-            titlePositionPercentageOffset: 1.05,
+            badgeWidget: points >= 20
+                ? Text(
+                    aspect[0].toUpperCase(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 8,
+                    ),
+                  )
+                : null,
+            badgePositionPercentageOffset: 0.8,
+            titlePositionPercentageOffset: points > 20 ? 1.1 : 1.5,
             radius: points * 1.25,
           ),
         );
@@ -83,14 +80,6 @@ class PieChartsView extends StatelessWidget {
     }
   }
 
-  final townColors = [
-    town1Color,
-    town2Color,
-    town3Color,
-    town4Color,
-    town5Color,
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Consumer<TownModel>(
@@ -102,7 +91,7 @@ class PieChartsView extends StatelessWidget {
             (i) => CustomPieChart(
               sections: getSections(townModel.towns[i]),
               title: townModel.towns[i].name,
-              townColor: i < townColors.length ? townColors[i] : Colors.grey,
+              townColor: Color(0xFF017f40),
               titleFontSize: titleFontSize,
             ),
           ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:math' as math;
 
+import 'package:heat_is_on_flutter/constants/app_colors.dart';
+
 class CustomPieChart extends StatelessWidget {
   final List<PieChartSectionData> sections;
   final String title;
@@ -50,32 +52,32 @@ class CustomPieChart extends StatelessWidget {
               // Add custom icons
               const Positioned(
                 top: 0,
-                left: 20,
+                right: 20,
                 child: Icon(Icons.local_fire_department,
-                    color: Colors.red, size: iconSize), //fire
+                    color: bushfireColor1, size: iconSize), //fire
               ),
               const Positioned(
-                right: 20,
-                top: 0,
+                left: 0,
+                bottom: 80,
                 child: Icon(Icons.wb_sunny,
-                    color: Colors.orange, size: iconSize), //heatwave
+                    color: heatwaveColor1, size: iconSize), //heatwave
               ),
               const Positioned(
                 bottom: 0,
-                child: Icon(Icons.flood_outlined,
-                    color: Colors.blue, size: iconSize), //water
+                child: Icon(Icons.storm_outlined,
+                    color: stormSurgeColor1, size: iconSize), //water
               ),
               const Positioned(
                 right: 0,
                 bottom: 80,
-                child: Icon(Icons.waves_outlined,
-                    color: Colors.blueAccent, size: iconSize), //storm surge
+                child: Icon(Icons.flood_outlined,
+                    color: floodColor1, size: iconSize), //storm surge
               ),
               const Positioned(
-                  bottom: 80,
-                  left: 0,
+                  top: 0,
+                  left: 20,
                   child: Icon(Icons.bug_report,
-                      color: Colors.green, size: iconSize)), //bioHazard
+                      color: biohazardColor1, size: iconSize)), //bioHazard
             ],
           ),
           Padding(
