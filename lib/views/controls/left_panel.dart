@@ -168,7 +168,7 @@ class _TownNameInputState extends State<TownNameInput> {
     _controller.text = widget.town.name;
 
     return SizedBox(
-      width: 150,
+      width: 120,
       height: widget.textStyleTitle.fontSize! + 60,
       child: Column(
         children: [

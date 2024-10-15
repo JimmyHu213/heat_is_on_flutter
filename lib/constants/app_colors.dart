@@ -42,21 +42,19 @@ const Color biohazardColor4 = Color(0xFFF280EB);
 const Color biohazardColor5 = Color(0xFFF9C7F5);
 const Color biohazardColor6 = Color(0xFFEFDFF4);
 
-// Flood colors
-const Color stormSurgeColor1 = Color(0xFF6954AE);
-const Color stormSurgeColor2 = Color(0xFFB2A7D6);
-const Color stormSurgeColor3 = Color(0xFF818FC8);
-const Color stormSurgeColor4 = Color(0xFFA6AFD8);
-const Color stormSurgeColor5 = Color(0xFFD7DCEC);
-const Color stormSurgeColor6 = Color(0xFFDEDAEC);
+const Color floodColor1 = Color(0xFF6954AE);
+const Color floodColor2 = Color(0xFFB2A7D6);
+const Color floodColor3 = Color(0xFF818FC8);
+const Color floodColor4 = Color(0xFFA6AFD8);
+const Color floodColor5 = Color(0xFFD7DCEC);
+const Color floodColor6 = Color(0xFFDEDAEC);
 
-// Storm Surge colors
-const Color floodColor1 = Color(0xFF34908B);
-const Color floodColor2 = Color(0xFF88BBB7);
-const Color floodColor3 = Color(0xFF0A7E5B);
-const Color floodColor4 = Color(0xFF67A38A);
-const Color floodColor5 = Color(0xFFBCD6CB);
-const Color floodColor6 = Color(0xFFD3E6E5);
+const Color stormSurgeColor1 = Color(0xFF34908B);
+const Color stormSurgeColor2 = Color(0xFF88BBB7);
+const Color stormSurgeColor3 = Color(0xFF0A7E5B);
+const Color stormSurgeColor4 = Color(0xFF67A38A);
+const Color stormSurgeColor5 = Color(0xFFBCD6CB);
+const Color stormSurgeColor6 = Color(0xFFD3E6E5);
 
 // Gains colors
 const Color gainsColor1 = Color(0xFF80921C);

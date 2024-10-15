@@ -283,7 +283,7 @@ class TownModel extends ChangeNotifier {
 
   List<String> _getZeroAspects(AbilityPoints ability) {
     return ['nature', 'economy', 'society', 'health']
-        .where((aspect) => ability.toJson()[aspect] < 20)
+        .where((aspect) => ability.toJson()[aspect] <= 20)
         .toList();
   }
 

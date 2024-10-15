@@ -152,8 +152,8 @@ const stormSurge1 = {
   "cost": 15,
   "nature": 10,
   "economy": 20,
-  "society": 20,
-  "health": 20
+  "society": 10,
+  "health": 10
 };
 
 const stormSurge2 = {
@@ -161,8 +161,8 @@ const stormSurge2 = {
   "type": "stormSurge",
   "round": 2,
   "cost": 15,
-  "nature": 30,
-  "economy": 10,
+  "nature": 25,
+  "economy": 15,
   "society": 10,
   "health": 10
 };
@@ -348,9 +348,9 @@ const heatwave = {
 const biohazard = {
   "id": "biohazard",
   "name": "Biohazard",
-  "nature": 20,
-  "economy": 15,
-  "society": 20,
+  "nature": 5,
+  "economy": 25,
+  "society": 25,
   "health": 25
 };
 

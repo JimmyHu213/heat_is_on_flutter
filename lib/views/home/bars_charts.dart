@@ -4,6 +4,7 @@ import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
 import 'package:heat_is_on_flutter/widgets/bar_chart_template.dart';
 import 'package:heat_is_on_flutter/constants/config.dart' as config;
+import 'package:heat_is_on_flutter/widgets/pie_chart_template.dart';
 import 'package:provider/provider.dart';
 
 class BarChartsView extends StatelessWidget {
@@ -18,7 +19,8 @@ class BarChartsView extends StatelessWidget {
 
   List<BarChartGroupData> getAspectBarGroups(List<Town> towns) {
     const double barWidth = 22.0;
-    List<int> sumAspects = [0, 0, 0, 0]; // nature, economy, society, health
+    List<int> sumAspects = List.filled(
+        config.aspectIds.length, 0); // nature, economy, society, health
 
     for (var town in towns) {
       sumAspects[0] += town.bushfire.nature +
@@ -44,7 +46,7 @@ class BarChartsView extends StatelessWidget {
     }
 
     return List.generate(
-        4,
+        sumAspects.length,
         (i) => BarChartGroupData(
               x: i,
               barRods: [
@@ -62,7 +64,7 @@ class BarChartsView extends StatelessWidget {
     const double barWidth = 22.0;
     return List.generate(towns.length, (i) {
       int totalPoints = 0;
-      List<int> aspectPoints = [0, 0, 0, 0];
+      List<int> aspectPoints = List.filled(config.aspectIds.length, 0);
 
       void sumAspect(AbilityPoints ability) {
         aspectPoints[0] += ability.nature;
@@ -86,7 +88,7 @@ class BarChartsView extends StatelessWidget {
             width: barWidth,
             toY: totalPoints.toDouble(),
             rodStackItems: List.generate(
-                4,
+                aspectPoints.length,
                 (j) => BarChartRodStackItem(
                       j == 0
                           ? 0
@@ -134,15 +136,18 @@ class BarChartsView extends StatelessWidget {
             CustomBarChart(
               barGroups: aspectBarGroups,
               xAxisLabels: config.aspectsTitle,
-              maxY: maxY1,
+              maxY: 2000,
               title: 'Aspects Summary',
             ),
             SizedBox(width: 20),
             CustomBarChart(
               barGroups: townBarGroups,
               xAxisLabels: xAxisLabels,
-              maxY: maxY2,
+              maxY: 2000,
               title: 'Towns Summary',
+            ),
+            SizedBox(
+              width: 20,
             ),
           ],
         ),

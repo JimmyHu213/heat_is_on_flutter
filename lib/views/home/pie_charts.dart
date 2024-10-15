@@ -91,7 +91,7 @@ class PieChartsView extends StatelessWidget {
             (i) => CustomPieChart(
               sections: getSections(townModel.towns[i]),
               title: townModel.towns[i].name,
-              townColor: Color(0xFF017f40),
+              townColor: const Color(0xFF017f40),
               titleFontSize: titleFontSize,
             ),
           ),
