@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/model/card.dart';
 import 'package:heat_is_on_flutter/model/global_data.dart';
@@ -53,6 +51,7 @@ class HazardGrid extends StatelessWidget {
   });
 
   final TextEditingController _logController = GameLog.logController;
+  final EventLog _eventLog = EventLog();
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +76,8 @@ class HazardGrid extends StatelessWidget {
             onPressed: () {
               _logController.text =
                   'Hazard ${hazard.name} Happended\n${_logController.text}';
+              _eventLog.addEvent(GlobalRound.round, [hazard]);
+              print(_eventLog.getEventLog());
               townModel.applyHazard(hazards[index]);
             },
           );

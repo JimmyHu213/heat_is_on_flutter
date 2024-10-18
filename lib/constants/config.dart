@@ -1,4 +1,6 @@
 // ignore: constant_identifier_names
+import 'package:flutter/material.dart';
+
 const TITLE = "The Heat is On";
 
 // List of default towns
@@ -355,3 +357,11 @@ const biohazard = {
 };
 
 const hazards = [bushfire, flood, stormSurge, heatwave, biohazard];
+
+const eventIcons = {
+  'bushfire': Icon(Icons.local_fire_department),
+  'flood': Icon(Icons.cloud),
+  'stormSurge': Icon(Icons.flood_outlined),
+  'heatwave': Icon(Icons.wb_sunny),
+  'biohazard': Icon(Icons.bug_report),
+};

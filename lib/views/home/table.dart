@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:heat_is_on_flutter/model/global_data.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
 import 'package:provider/provider.dart';
+import 'package:heat_is_on_flutter/constants/config.dart' as config;
 
 class TableView extends StatelessWidget {
   TableView({super.key});
@@ -15,7 +17,7 @@ class TableView extends StatelessWidget {
     'Budget'
   ];
 
-  final List<String> evenLog = ['Event Log', '', '', '', '', '', ''];
+  final EventLog eventLog = EventLog();
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +41,36 @@ class TableView extends StatelessWidget {
                 (index) => DataColumn(
                       label: Text(
                         tableHeaders[index],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: fontSize, fontWeight: FontWeight.bold),
                       ),
                     )),
             rows: [
-              DataRow(
-                  color: MaterialStateProperty.all(Colors.black54),
-                  cells: List<DataCell>.generate(tableHeaders.length, (index) {
-                    return DataCell(Text(
-                      evenLog[index],
-                      style: textStyle,
-                    ));
-                  })),
+              DataRow(color: MaterialStateProperty.all(Colors.black54), cells: [
+                DataCell(Text(
+                  'Event',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.bold),
+                )),
+                ...List<DataCell>.generate(
+                    tableHeaders.length - 2,
+                    (index) => DataCell(
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.cloud,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        )),
+                DataCell(Text(
+                  '',
+                  style: textStyle,
+                )),
+              ]),
               ...List<DataRow>.generate(
                   townModel.towns.length,
                   (index) => DataRow(cells: [
@@ -59,6 +78,7 @@ class TableView extends StatelessWidget {
                           townModel.towns[index].name,
                           style: const TextStyle(
                             color: Colors.white,
+                            fontSize: 18,
                           ),
                         )),
                         ...List<DataCell>.generate(
