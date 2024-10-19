@@ -240,14 +240,18 @@ class TownModel extends ChangeNotifier {
 
   void _updateAbility(AbilityPoints ability, GameCard card,
       {String? onlyAspect}) {
-    if (onlyAspect == null || onlyAspect == 'nature')
+    if (onlyAspect == null || onlyAspect == 'nature') {
       ability.nature += card.nature;
-    if (onlyAspect == null || onlyAspect == 'economy')
+    }
+    if (onlyAspect == null || onlyAspect == 'economy') {
       ability.economy += card.economy;
-    if (onlyAspect == null || onlyAspect == 'society')
+    }
+    if (onlyAspect == null || onlyAspect == 'society') {
       ability.society += card.society;
-    if (onlyAspect == null || onlyAspect == 'health')
+    }
+    if (onlyAspect == null || onlyAspect == 'health') {
       ability.health += card.health;
+    }
   }
 
   void applyHazard(Hazard hazard) {

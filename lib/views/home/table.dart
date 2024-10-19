@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/model/global_data.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
@@ -46,27 +48,29 @@ class TableView extends StatelessWidget {
                       ),
                     )),
             rows: [
-              DataRow(color: MaterialStateProperty.all(Colors.black54), cells: [
-                DataCell(Text(
+              DataRow(color: MaterialStateProperty.all(Colors.black45), cells: [
+                const DataCell(Text(
                   'Event',
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.white,
                       fontSize: fontSize,
                       fontWeight: FontWeight.bold),
                 )),
-                ...List<DataCell>.generate(
-                    tableHeaders.length - 2,
-                    (index) => DataCell(
+                ...List<DataCell>.generate(tableHeaders.length - 2, (index) {
+                  var events = eventLog.getEvents(index + 1);
+                  var icons = [];
+                  if (events.isNotEmpty) {
+                    icons = events.map((e) => config.eventIcons[e]).toList();
+                  }
+                  return icons.isEmpty
+                      ? const DataCell(Text(''))
+                      : DataCell(
                           Row(
-                            children: [
-                              const Icon(
-                                Icons.cloud,
-                                color: Colors.white,
-                              ),
-                            ],
+                            children: [...icons],
                           ),
-                        )),
-                DataCell(Text(
+                        );
+                }),
+                const DataCell(Text(
                   '',
                   style: textStyle,
                 )),
@@ -83,7 +87,7 @@ class TableView extends StatelessWidget {
                         )),
                         ...List<DataCell>.generate(
                             tableHeaders.length - 2,
-                            (index) => DataCell(
+                            (index) => const DataCell(
                                   Text(''),
                                 )),
                         DataCell(TextField(

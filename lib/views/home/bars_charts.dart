@@ -16,6 +16,74 @@ class BarChartsView extends StatelessWidget {
     societyColor,
     healthColor,
   ];
+  final List<String> aspects = config.aspectIds;
+  final List<String> hazards = config.hazardIds;
+
+  List<PieChartSectionData> getSections(Town town) {
+    final colors = [
+      bushfireColor1,
+      floodColor1,
+      stormSurgeColor1,
+      heatwaveColor1,
+      biohazardColor1,
+    ];
+
+    List<PieChartSectionData> sections = [];
+
+    for (int i = 0; i < hazards.length; i++) {
+      final hazard = hazards[i];
+      final hazardPoints = getHazardPoints(town, hazard);
+      final color = colors[i];
+
+      for (int j = 0; j < aspects.length; j++) {
+        final aspect = aspects[j];
+        final points = hazardPoints[aspect] ?? 0;
+
+        sections.add(
+          PieChartSectionData(
+            color: color,
+            value: 1,
+            title: points.toString(),
+            titleStyle: TextStyle(
+              color: Colors.grey[700],
+              fontSize: 8,
+            ),
+            badgeWidget: points >= 20
+                ? Text(
+                    aspect[0].toUpperCase(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 8,
+                    ),
+                  )
+                : null,
+            badgePositionPercentageOffset: 0.8,
+            titlePositionPercentageOffset: points > 20 ? 1.1 : 1.5,
+            radius: points * 1.25,
+          ),
+        );
+      }
+    }
+
+    return sections;
+  }
+
+  Map<String, dynamic> getHazardPoints(Town town, String hazard) {
+    switch (hazard) {
+      case 'bushfire':
+        return town.bushfire.toJson();
+      case 'flood':
+        return town.flood.toJson();
+      case 'stormSurge':
+        return town.stormSurge.toJson();
+      case 'heatwave':
+        return town.heatwave.toJson();
+      case 'biohazard':
+        return town.biohazard.toJson();
+      default:
+        throw ArgumentError('Unknown hazard: $hazard');
+    }
+  }
 
   List<BarChartGroupData> getAspectBarGroups(List<Town> towns) {
     const double barWidth = 22.0;
@@ -128,7 +196,7 @@ class BarChartsView extends StatelessWidget {
 
       return SizedBox(
         width: double.infinity,
-        height: 500,
+        height: 450,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,6 +217,10 @@ class BarChartsView extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
+            CustomPieChart(
+                sections: getSections(towns[0]),
+                title: 'BludgeTown',
+                townColor: const Color(0xFF017f40))
           ],
         ),
       );

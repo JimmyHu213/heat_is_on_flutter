@@ -1,20 +1,25 @@
-import 'dart:html';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/model/hazard.dart';
 
 class GlobalRound {
   static int round = 0;
 
+  static CollectionReference roundCollection =
+      FirebaseFirestore.instance.collection('rounds');
+
   void incrementRound() {
     round++;
+    uploadRound();
   }
 
   void resetRound() {
     round = 0;
+    uploadRound();
   }
 
   int getRound() {
+    fetchRound();
     return round;
   }
 
@@ -22,6 +27,25 @@ class GlobalRound {
   void checkRound() {
     if (round == 5) {
       resetRound();
+    }
+  }
+
+  //upload round to firebase
+  Future<void> uploadRound() async {
+    try {
+      await roundCollection.doc('currentRound').set({'round': round});
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> fetchRound() async {
+    try {
+      final DocumentSnapshot documentSnapshot =
+          await roundCollection.doc('currentRound').get();
+      round = documentSnapshot.get('round');
+    } catch (e) {
+      print(e);
     }
   }
 }
@@ -43,24 +67,64 @@ class GameLog {
 }
 
 class EventLog {
-  static Map<int, List<Hazard>> eventLog = {1: [], 2: [], 3: [], 4: [], 5: []};
+  static Map<int, List<String>> eventLog = {1: [], 2: [], 3: [], 4: [], 5: []};
 
-  void addEvent(int round, List<Hazard> hazards) {
-    if (round == 0) {
+  static CollectionReference eventCollection =
+      FirebaseFirestore.instance.collection('events');
+
+  //add event to event log
+  void addEvent(int round, List<String> events) {
+    if (eventLog[round] == null || round == 0) {
       return;
     }
-    eventLog[round]!.addAll(hazards);
+    eventLog[round]!.addAll(events);
+    uploadEventLog();
   }
 
-  void clearEventLog() {
-    eventLog.clear();
-  }
-
-  List<Hazard> getEvent(int round) {
+  List<String> getEvents(int round) {
+    fetchEventLog();
     return eventLog[round]!;
   }
 
-  Map<int, List<Hazard>> getEventLog() {
+  //get all events
+  Map<int, List<String>> getEventLog() {
+    fetchEventLog();
     return eventLog;
+  }
+
+  //clear event log
+  void clearEventLog() {
+    eventLog = {1: [], 2: [], 3: [], 4: [], 5: []};
+    uploadEventLog();
+  }
+
+  //upload event log to firebase
+  Future<void> uploadEventLog() async {
+    try {
+      await eventCollection.doc('eventLog').set({
+        '1': eventLog[1],
+        '2': eventLog[2],
+        '3': eventLog[3],
+        '4': eventLog[4],
+        '5': eventLog[5],
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //fetch event log from firebase
+  Future<void> fetchEventLog() async {
+    try {
+      final QuerySnapshot querySnapshot = await eventCollection.get();
+      querySnapshot.docs.forEach((doc) {
+        var data = doc.data() as Map<String, dynamic>;
+        for (var i = 1; i <= 5; i++) {
+          eventLog[i] = List<String>.from(data['$i']);
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 }

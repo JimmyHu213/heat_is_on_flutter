@@ -1,5 +1,3 @@
-import 'package:heat_is_on_flutter/model/town.dart';
-
 class Hazard {
   final String id;
   final String name;

@@ -74,10 +74,13 @@ class HazardGrid extends StatelessWidget {
           return AbilityTile(
             hazard: hazard,
             onPressed: () {
+              if (GlobalRound.round == 0) {
+                return;
+              }
               _logController.text =
                   'Hazard ${hazard.name} Happended\n${_logController.text}';
-              _eventLog.addEvent(GlobalRound.round, [hazard]);
-              print(_eventLog.getEventLog());
+              _eventLog.addEvent(GlobalRound.round, [hazard.id]);
+              //print(_eventLog.getEventLog());
               townModel.applyHazard(hazards[index]);
             },
           );

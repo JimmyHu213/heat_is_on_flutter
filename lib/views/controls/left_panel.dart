@@ -74,6 +74,7 @@ class _LeftPanelState extends State<LeftPanel> {
                     onPressed: () {
                       GlobalRound().resetRound();
                       townModel.resetTowns();
+                      EventLog().clearEventLog();
                       setState(() {
                         _logController.text = '';
                       });

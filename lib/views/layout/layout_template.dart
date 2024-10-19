@@ -1,5 +1,8 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
+import 'package:heat_is_on_flutter/model/global_data.dart';
 import 'package:heat_is_on_flutter/views/home/dash_board.dart';
 import 'package:heat_is_on_flutter/views/layout/mobile_page.dart';
 import 'package:heat_is_on_flutter/widgets/center_view.dart';
@@ -23,6 +26,30 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
   void initState() {
     super.initState();
     _initializeTowns();
+    _initializeEvents();
+    _initializeRounds();
+  }
+
+  Future<void> _initializeRounds() async {
+    final globalRound = GlobalRound();
+    try {
+      globalRound.getRound();
+      print('Initialized Rounds: ${globalRound.getRound()}');
+    } catch (e) {
+      print('Error initializing rounds: $e');
+    }
+  }
+
+  Future<void> _initializeEvents() async {
+    final eventLog = EventLog();
+    try {
+      eventLog.getEventLog();
+      print('Initialized Events: ${eventLog.getEventLog()}');
+    } catch (e) {
+      print('Error initializing events: $e');
+      //setLoadingMessage('Error initializing events. Please try again.');
+      // You might want to show an error dialog here
+    }
   }
 
   Future<void> _initializeTowns() async {

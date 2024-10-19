@@ -1,5 +1,6 @@
 // ignore: constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:heat_is_on_flutter/constants/app_colors.dart';
 
 const TITLE = "The Heat is On";
 
@@ -359,9 +360,10 @@ const biohazard = {
 const hazards = [bushfire, flood, stormSurge, heatwave, biohazard];
 
 const eventIcons = {
-  'bushfire': Icon(Icons.local_fire_department),
-  'flood': Icon(Icons.cloud),
-  'stormSurge': Icon(Icons.flood_outlined),
-  'heatwave': Icon(Icons.wb_sunny),
-  'biohazard': Icon(Icons.bug_report),
+  'bushfire':
+      Icon(Icons.local_fire_department, color: bushfireColor1, size: 36),
+  'flood': Icon(Icons.cloud, color: floodColor1, size: 36),
+  'stormSurge': Icon(Icons.cloudy_snowing, color: stormSurgeColor1, size: 36),
+  'heatwave': Icon(Icons.wb_sunny, color: heatwaveColor1, size: 36),
+  'biohazard': Icon(Icons.bug_report, color: biohazardColor1, size: 36),
 };
