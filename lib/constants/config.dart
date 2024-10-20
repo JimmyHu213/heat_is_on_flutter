@@ -60,6 +60,17 @@ const town5 = {
   "biohazard": {"nature": 40, "economy": 40, "society": 40, "health": 40}
 };
 
+const town6 = {
+  "id": "6",
+  "name": "Bludge Town",
+  "effortPoints": 100,
+  "bushfire": {"nature": 80, "economy": 80, "society": 80, "health": 80},
+  "flood": {"nature": 80, "economy": 80, "society": 80, "health": 80},
+  "stormSurge": {"nature": 80, "economy": 80, "society": 80, "health": 80},
+  "heatwave": {"nature": 60, "economy": 60, "society": 60, "health": 60},
+  "biohazard": {"nature": 40, "economy": 40, "society": 40, "health": 40}
+};
+
 // Table titles
 const hazardsTitle = [
   'Bushfire',

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/model/global_data.dart';
@@ -28,6 +26,16 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
     _initializeTowns();
     _initializeEvents();
     _initializeRounds();
+    _initalizeDummy();
+  }
+
+  Future<void> _initalizeDummy() async {
+    try {
+      GlobalDummyTown().getTown();
+      print('Initialized Dummy Town: ${GlobalDummyTown.town}');
+    } catch (e) {
+      print('Error initializing dummy town: $e');
+    }
   }
 
   Future<void> _initializeRounds() async {

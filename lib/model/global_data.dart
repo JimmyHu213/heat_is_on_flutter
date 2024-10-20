@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/model/hazard.dart';
+import 'package:heat_is_on_flutter/model/town.dart';
+import 'package:heat_is_on_flutter/constants/config.dart' as config;
 
 class GlobalRound {
   static int round = 0;
@@ -126,5 +128,68 @@ class EventLog {
     } catch (e) {
       print(e);
     }
+  }
+}
+
+class GlobalDummyTown {
+  static final CollectionReference _townCollection =
+      FirebaseFirestore.instance.collection('dummy_town');
+  static Town _town = Town.fromJson(config.town6);
+  static Town get town => _town;
+
+  Future<void> getTown() async {
+    try {
+      final DocumentSnapshot townDoc = await _townCollection.doc('6').get();
+      _town = Town.fromJson(townDoc.data() as Map<String, dynamic>);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> updateTown(Town town) async {
+    try {
+      await _townCollection.doc(town.id).update(town.toJson());
+    } catch (e) {
+      print(e);
+    }
+    getTown();
+  }
+
+  //reset town to default values
+  Future<void> resetTown() async {
+    try {
+      await _townCollection.doc('6').update(config.town6);
+    } catch (e) {
+      print(e);
+    }
+    getTown();
+  }
+
+  void applyHazard(Hazard hazard) {
+    switch (hazard.id) {
+      case 'bushfire':
+        _applyHazardToAbility(_town.bushfire, hazard);
+        break;
+      case 'flood':
+        _applyHazardToAbility(_town.flood, hazard);
+        break;
+      case 'stormSurge':
+        _applyHazardToAbility(_town.stormSurge, hazard);
+        break;
+      case 'heatwave':
+        _applyHazardToAbility(_town.heatwave, hazard);
+        break;
+      case 'biohazard':
+        _applyHazardToAbility(_town.biohazard, hazard);
+        break;
+    }
+    updateTown(_town);
+  }
+
+  void _applyHazardToAbility(AbilityPoints ability, Hazard hazard) {
+    ability.nature -= hazard.nature;
+    ability.economy -= hazard.economy;
+    ability.society -= hazard.society;
+    ability.health -= hazard.health;
   }
 }

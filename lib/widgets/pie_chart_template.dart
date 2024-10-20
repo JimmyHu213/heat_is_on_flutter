@@ -79,7 +79,8 @@ class CustomPieChart extends StatelessWidget {
                 const Positioned(
                   right: 0,
                   bottom: 80,
-                  child: Icon(Icons.cloud, color: floodColor1, size: iconSize),
+                  child: Icon(Icons.cloudy_snowing,
+                      color: floodColor1, size: iconSize),
                 ),
                 const Positioned(
                   top: 0,

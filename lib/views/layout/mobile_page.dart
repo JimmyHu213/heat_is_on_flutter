@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:heat_is_on_flutter/constants/app_colors.dart';
 
 class MobilePage extends StatelessWidget {
   const MobilePage({super.key});

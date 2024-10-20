@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
+import 'package:heat_is_on_flutter/model/global_data.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
 import 'package:heat_is_on_flutter/widgets/bar_chart_template.dart';
 import 'package:heat_is_on_flutter/constants/config.dart' as config;
@@ -218,7 +219,7 @@ class BarChartsView extends StatelessWidget {
               width: 20,
             ),
             CustomPieChart(
-                sections: getSections(towns[0]),
+                sections: getSections(GlobalDummyTown.town),
                 title: 'BludgeTown',
                 townColor: const Color(0xFF017f40))
           ],

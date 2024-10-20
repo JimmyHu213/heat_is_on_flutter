@@ -23,7 +23,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => TownModel())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => TownModel()),
+      ],
       child: MaterialApp(
         title: config.TITLE,
         theme: ThemeData(
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
               secondary: secondaryColor),
           useMaterial3: true,
         ),
-        //home: const ControlView()
+        //home: const Contr PolView()
         home: const LayOutTemplate(),
       ),
     );

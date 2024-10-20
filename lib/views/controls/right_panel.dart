@@ -80,8 +80,8 @@ class HazardGrid extends StatelessWidget {
               _logController.text =
                   'Hazard ${hazard.name} Happended\n${_logController.text}';
               _eventLog.addEvent(GlobalRound.round, [hazard.id]);
-              //print(_eventLog.getEventLog());
               townModel.applyHazard(hazards[index]);
+              GlobalDummyTown().applyHazard(hazards[index]);
             },
           );
         },

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/config.dart' as config;
 import 'package:heat_is_on_flutter/model/card.dart';
+import 'package:heat_is_on_flutter/model/global_data.dart';
 import 'package:heat_is_on_flutter/model/hazard.dart';
 
 // ignore_for_file: non_constant_identifier_names

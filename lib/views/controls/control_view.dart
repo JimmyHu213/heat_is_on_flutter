@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
-import 'package:heat_is_on_flutter/model/card.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
 import 'package:heat_is_on_flutter/views/controls/left_panel.dart';
 import 'package:heat_is_on_flutter/views/controls/right_panel.dart';
