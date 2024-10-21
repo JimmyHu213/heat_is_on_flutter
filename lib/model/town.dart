@@ -258,13 +258,9 @@ class TownModel extends ChangeNotifier {
   void applyHazard(Hazard hazard) {
     for (var town in towns) {
       final ability = _getAbilityForHazard(town, hazard.id);
-      final zeroAspects = _getZeroAspects(ability);
 
       _applyHazardToAbility(ability, hazard);
-
-      for (var aspect in zeroAspects) {
-        _applyPenaltyToOtherAbilities(town, aspect, hazard.id);
-      }
+      _applyPenaltyToOtherAbilities(town);
     }
     updateAllTowns(towns);
   }
@@ -286,12 +282,6 @@ class TownModel extends ChangeNotifier {
     }
   }
 
-  List<String> _getZeroAspects(AbilityPoints ability) {
-    return ['nature', 'economy', 'society', 'health']
-        .where((aspect) => ability.toJson()[aspect] <= 20)
-        .toList();
-  }
-
   void _applyHazardToAbility(AbilityPoints ability, Hazard hazard) {
     ability.nature -= hazard.nature;
     ability.economy -= hazard.economy;
@@ -299,40 +289,37 @@ class TownModel extends ChangeNotifier {
     ability.health -= hazard.health;
   }
 
-  void _applyPenaltyToOtherAbilities(
-      Town town, String aspect, String excludeHazard) {
+  void _applyPenaltyToOtherAbilities(Town town) {
+    const int threshold = 20;
     const int penalty = 10;
-    final abilities = [
+    bool shouldApplyPenalty = false;
+
+    // Check if any aspect of any ability is 20 or below
+    List<AbilityPoints> allAbilities = [
       town.bushfire,
       town.flood,
       town.stormSurge,
       town.heatwave,
       town.biohazard
     ];
-    final hazardIds = [
-      'bushfire',
-      'flood',
-      'stormSurge',
-      'heatwave',
-      'biohazard'
-    ];
 
-    for (int i = 0; i < abilities.length; i++) {
-      if (hazardIds[i] != excludeHazard) {
-        switch (aspect) {
-          case 'nature':
-            abilities[i].nature -= penalty;
-            break;
-          case 'economy':
-            abilities[i].economy -= penalty;
-            break;
-          case 'society':
-            abilities[i].society -= penalty;
-            break;
-          case 'health':
-            abilities[i].health -= penalty;
-            break;
-        }
+    for (var ability in allAbilities) {
+      if (ability.nature <= threshold ||
+          ability.economy <= threshold ||
+          ability.society <= threshold ||
+          ability.health <= threshold) {
+        shouldApplyPenalty = true;
+        break;
+      }
+    }
+
+    // If any aspect is 20 or below, apply penalty to all aspects of all abilities
+    if (shouldApplyPenalty) {
+      for (var ability in allAbilities) {
+        ability.nature -= penalty;
+        ability.economy -= penalty;
+        ability.society -= penalty;
+        ability.health -= penalty;
       }
     }
   }

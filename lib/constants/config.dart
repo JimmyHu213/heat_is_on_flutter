@@ -62,7 +62,7 @@ const town5 = {
 
 const town6 = {
   "id": "6",
-  "name": "Bludge Town",
+  "name": "Bludgeton",
   "effortPoints": 100,
   "bushfire": {"nature": 80, "economy": 80, "society": 80, "health": 80},
   "flood": {"nature": 80, "economy": 80, "society": 80, "health": 80},

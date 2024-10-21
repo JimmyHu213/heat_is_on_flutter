@@ -186,14 +186,14 @@ class BarChartsView extends StatelessWidget {
       final townBarGroups = getTownBarGroups(towns);
       final xAxisLabels = towns.map((town) => town.name).toList();
 
-      double maxY1 = aspectBarGroups.fold(
-          0,
-          (max, group) =>
-              group.barRods[0].toY > max ? group.barRods[0].toY : max);
-      double maxY2 = townBarGroups.fold(
-          0,
-          (max, group) =>
-              group.barRods[0].toY > max ? group.barRods[0].toY : max);
+      // double maxY1 = aspectBarGroups.fold(
+      //     0,
+      //     (max, group) =>
+      //         group.barRods[0].toY > max ? group.barRods[0].toY : max);
+      // double maxY2 = townBarGroups.fold(
+      //     0,
+      //     (max, group) =>
+      //         group.barRods[0].toY > max ? group.barRods[0].toY : max);
 
       return SizedBox(
         width: double.infinity,
@@ -220,7 +220,7 @@ class BarChartsView extends StatelessWidget {
             ),
             CustomPieChart(
                 sections: getSections(GlobalDummyTown.town),
-                title: 'BludgeTown',
+                title: GlobalDummyTown.town.name,
                 townColor: const Color(0xFF017f40))
           ],
         ),

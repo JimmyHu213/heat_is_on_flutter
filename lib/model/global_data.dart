@@ -183,6 +183,8 @@ class GlobalDummyTown {
         _applyHazardToAbility(_town.biohazard, hazard);
         break;
     }
+    _applyPenaltyToOtherAbilities(_town);
+    print(_town);
     updateTown(_town);
   }
 
@@ -191,5 +193,40 @@ class GlobalDummyTown {
     ability.economy -= hazard.economy;
     ability.society -= hazard.society;
     ability.health -= hazard.health;
+  }
+
+  void _applyPenaltyToOtherAbilities(Town town) {
+    const int threshold = 20;
+    const int penalty = 10;
+    bool shouldApplyPenalty = false;
+
+    // Check if any aspect of any ability is 20 or below
+    List<AbilityPoints> allAbilities = [
+      town.bushfire,
+      town.flood,
+      town.stormSurge,
+      town.heatwave,
+      town.biohazard
+    ];
+
+    for (var ability in allAbilities) {
+      if (ability.nature <= threshold ||
+          ability.economy <= threshold ||
+          ability.society <= threshold ||
+          ability.health <= threshold) {
+        shouldApplyPenalty = true;
+        break;
+      }
+    }
+
+    // If any aspect is 20 or below, apply penalty to all aspects of all abilities
+    if (shouldApplyPenalty) {
+      for (var ability in allAbilities) {
+        ability.nature -= penalty;
+        ability.economy -= penalty;
+        ability.society -= penalty;
+        ability.health -= penalty;
+      }
+    }
   }
 }
