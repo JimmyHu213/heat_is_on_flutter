@@ -71,7 +71,6 @@ class Town {
   AbilityPoints stormSurge;
   AbilityPoints heatwave;
   AbilityPoints biohazard;
-
 // add requried field to all the fields
   Town({
     required this.id,
@@ -183,6 +182,9 @@ class TownModel extends ChangeNotifier {
     _towns = snapshot.docs
         .map((doc) => Town.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
+
+    //WAIT TWO SECONDS
+    //await Future.delayed(const Duration(seconds: 2));
     isLoading = false;
     notifyListeners();
   }
@@ -235,7 +237,6 @@ class TownModel extends ChangeNotifier {
       abilities.forEach(
           (ability) => _updateAbility(ability, card, onlyAspect: card.type));
     }
-
     updateTown(town);
   }
 

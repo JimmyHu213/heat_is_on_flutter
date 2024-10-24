@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/model/global_data.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
+import 'package:heat_is_on_flutter/model/town_log.dart';
 import 'package:heat_is_on_flutter/widgets/custom_divider.dart';
 import 'package:provider/provider.dart';
 import 'package:heat_is_on_flutter/constants/config.dart' as config;
@@ -21,6 +22,7 @@ class _LeftPanelState extends State<LeftPanel> {
   Widget build(BuildContext context) {
     var textStyleTitle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
     final _currentRound = GlobalRound().getRound();
+    final townLogModel = Provider.of<TownLogModel>(context);
 
     return Consumer<TownModel>(builder: (context, townModel, child) {
       return Card(
@@ -75,6 +77,7 @@ class _LeftPanelState extends State<LeftPanel> {
                       GlobalDummyTown().resetTown();
                       GlobalRound().resetRound();
                       townModel.resetTowns();
+                      townLogModel.resetTownLogs();
                       EventLog().clearEventLog();
                       setState(() {
                         _logController.text = '';

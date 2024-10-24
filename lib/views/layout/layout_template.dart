@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/model/global_data.dart';
+import 'package:heat_is_on_flutter/model/town_log.dart';
 import 'package:heat_is_on_flutter/views/home/dash_board.dart';
 import 'package:heat_is_on_flutter/views/layout/mobile_page.dart';
 import 'package:heat_is_on_flutter/widgets/center_view.dart';
@@ -62,11 +63,13 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
 
   Future<void> _initializeTowns() async {
     final townModel = Provider.of<TownModel>(context, listen: false);
+    final townLogModel = Provider.of<TownLogModel>(context, listen: false);
 
     try {
       //await townModel.resetTowns();
+      //await townLogModel.resetTownLogs();
+      townLogModel.fetchTownLogs();
       await townModel.fetchTowns();
-
       print('Initialized Towns:');
       for (var town in townModel.towns) {
         print('ID: ${town.id}');
@@ -79,8 +82,14 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
         print('Biohazard: ${town.biohazard.toJson()}');
         print('---');
       }
+      print('Initialized Town Logs:');
+      for (var townLog in townLogModel.townLogs) {
+        print('Town ID: ${townLog.townId}');
+        print('Cards: ${townLog.cards}');
+        print('---');
+      }
     } catch (e) {
-      print('Error initializing towns: $e');
+      print('Error initializing towns/logs: $e');
       //setLoadingMessage('Error initializing towns. Please try again.');
       // You might want to show an error dialog here
     } finally {
@@ -90,83 +99,85 @@ class _LayOutTemplateState extends State<LayOutTemplate> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TownModel>(
-      builder: (context, townModel, child) {
-        return Scaffold(
-          backgroundColor: primaryColor,
-          body: townModel.isLoading
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(color: Colors.blue),
-                      SizedBox(height: 20),
-                      Text(_loadingMessage,
-                          style: TextStyle(color: Colors.white)),
+    return Consumer<TownLogModel>(builder: (context, townLogModel, child) {
+      return Consumer<TownModel>(
+        builder: (context, townModel, child) {
+          return Scaffold(
+            backgroundColor: primaryColor,
+            body: townModel.isLoading && townLogModel.isLoading
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(color: Colors.blue),
+                        SizedBox(height: 20),
+                        Text(_loadingMessage,
+                            style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  )
+                : CustomScrollView(
+                    slivers: <Widget>[
+                      SliverAppBar(
+                        pinned: false,
+                        expandedHeight: 250,
+                        actions: [
+                          IconButton(
+                            icon: const Icon(Icons.info_outline,
+                                size: 40, color: Colors.white),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const IntroView()),
+                              );
+                            },
+                            tooltip: 'Information',
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.person_2_outlined,
+                              size: 40,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ControlView()),
+                              );
+                            },
+                            tooltip: 'Admin Control',
+                          ),
+                        ],
+                        flexibleSpace: FlexibleSpaceBar(
+                          background: Image.asset(
+                            'assets/images/web-banner.png',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: ResponsiveBuilder(
+                          builder: (context, sizingInformation) {
+                            return SafeArea(
+                              child: CenterView(
+                                child: sizingInformation.deviceScreenType ==
+                                            DeviceScreenType.mobile ||
+                                        sizingInformation.deviceScreenType ==
+                                            DeviceScreenType.tablet
+                                    ? MobilePage()
+                                    : DashBoard(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
-                )
-              : CustomScrollView(
-                  slivers: <Widget>[
-                    SliverAppBar(
-                      pinned: false,
-                      expandedHeight: 250,
-                      actions: [
-                        IconButton(
-                          icon: const Icon(Icons.info_outline,
-                              size: 40, color: Colors.white),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const IntroView()),
-                            );
-                          },
-                          tooltip: 'Information',
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.person_2_outlined,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const ControlView()),
-                            );
-                          },
-                          tooltip: 'Admin Control',
-                        ),
-                      ],
-                      flexibleSpace: FlexibleSpaceBar(
-                        background: Image.asset(
-                          'assets/images/web-banner.png',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: ResponsiveBuilder(
-                        builder: (context, sizingInformation) {
-                          return SafeArea(
-                            child: CenterView(
-                              child: sizingInformation.deviceScreenType ==
-                                          DeviceScreenType.mobile ||
-                                      sizingInformation.deviceScreenType ==
-                                          DeviceScreenType.tablet
-                                  ? MobilePage()
-                                  : DashBoard(),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
   }
 }

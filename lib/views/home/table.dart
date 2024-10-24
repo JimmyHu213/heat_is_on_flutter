@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heat_is_on_flutter/model/global_data.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
+import 'package:heat_is_on_flutter/model/town_log.dart';
 import 'package:provider/provider.dart';
 import 'package:heat_is_on_flutter/constants/config.dart' as config;
 
@@ -23,6 +24,7 @@ class TableView extends StatelessWidget {
   Widget build(BuildContext context) {
     const double fontSize = 20;
     const textStyle = TextStyle(color: Colors.white, fontSize: 16);
+    final townLogModel = Provider.of<TownLogModel>(context);
 
     return Consumer<TownModel>(builder: (context, townModel, child) {
       return SizedBox(
@@ -74,32 +76,47 @@ class TableView extends StatelessWidget {
                 )),
               ]),
               ...List<DataRow>.generate(
-                  townModel.towns.length,
-                  (index) => DataRow(cells: [
-                        DataCell(Text(
-                          townModel.towns[index].name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        )),
-                        ...List<DataCell>.generate(
-                            tableHeaders.length - 2,
-                            (index) => const DataCell(
-                                  Text(''),
-                                )),
-                        DataCell(TextField(
-                          controller: TextEditingController(
-                              text: townModel.towns[index].effortPoints
-                                  .toString()),
-                          onSubmitted: (value) {
-                            var town = townModel.towns[index];
-                            town.effortPoints = int.parse(value);
-                            townModel.updateTown(townModel.towns[index]);
-                          },
-                          style: textStyle,
-                        )),
-                      ])),
+                townModel.towns.length,
+                (index) {
+                  var town = townModel.towns[index];
+                  return DataRow(cells: [
+                    DataCell(Text(
+                      town.name,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    )),
+                    ...List<DataCell>.generate(tableHeaders.length - 2,
+                        (index2) {
+                      var townLog = townLogModel.getTownLogByTownId(town.id);
+                      var cards = townLog.cards[index2 + 1]!;
+                      return cards.isEmpty
+                          ? DataCell(Text(
+                              ' ',
+                              style: textStyle,
+                            ))
+                          : DataCell(
+                              Row(
+                                children: cards
+                                    .map((e) => Text('$e ', style: textStyle))
+                                    .toList(),
+                              ),
+                            );
+                    }),
+                    DataCell(TextField(
+                      controller: TextEditingController(
+                          text: townModel.towns[index].effortPoints.toString()),
+                      onSubmitted: (value) {
+                        var town = townModel.towns[index];
+                        town.effortPoints = int.parse(value);
+                        townModel.updateTown(townModel.towns[index]);
+                      },
+                      style: textStyle,
+                    )),
+                  ]);
+                },
+              )
             ],
           ));
     });

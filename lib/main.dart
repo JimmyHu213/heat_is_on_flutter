@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:heat_is_on_flutter/constants/config.dart' as config;
 import 'package:heat_is_on_flutter/constants/app_colors.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
+import 'package:heat_is_on_flutter/model/town_log.dart';
 import 'package:heat_is_on_flutter/views/layout/layout_template.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => TownModel()),
+        ChangeNotifierProvider(create: (context) => TownLogModel()),
       ],
       child: MaterialApp(
         title: config.TITLE,

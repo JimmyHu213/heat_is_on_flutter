@@ -3,6 +3,7 @@ import 'package:heat_is_on_flutter/model/card.dart';
 import 'package:heat_is_on_flutter/model/global_data.dart';
 import 'package:heat_is_on_flutter/model/hazard.dart';
 import 'package:heat_is_on_flutter/model/town.dart';
+import 'package:heat_is_on_flutter/model/town_log.dart';
 import 'package:heat_is_on_flutter/widgets/custom_divider.dart';
 import 'package:heat_is_on_flutter/constants/config.dart' as config;
 import 'package:provider/provider.dart';
@@ -91,9 +92,13 @@ class HazardGrid extends StatelessWidget {
 }
 
 class AbilitiesGrid extends StatelessWidget {
+  AbilitiesGrid({super.key});
+
+  final TextEditingController _logController = GameLog.logController;
+
   @override
   Widget build(BuildContext context) {
-    //final townModel = Provider.of<TownModel>(context);
+    final townLogModel = Provider.of<TownLogModel>(context);
     return Consumer<TownModel>(builder: (context, townModel, child) {
       return SizedBox(
         height: 600,
@@ -112,7 +117,14 @@ class AbilitiesGrid extends StatelessWidget {
             return AbilityTile2(
               card: card,
               onPressed: (String townId) {
+                if (GlobalRound.round == 0) {
+                  return;
+                }
                 townModel.applyAbility(townId, card);
+                townLogModel.addCardToTownLog(
+                    townId, GlobalRound.round, card.id);
+                _logController.text =
+                    'Card ${card.id} Applied to $townId\n${_logController.text}';
               },
             );
           },
@@ -123,11 +135,14 @@ class AbilitiesGrid extends StatelessWidget {
 }
 
 class AllAbilitiesGrid extends StatelessWidget {
-  //final TextEditingController _controller = GameLog.logController;
+  AllAbilitiesGrid({super.key});
+
+  final TextEditingController _controller = GameLog.logController;
 
   @override
   Widget build(BuildContext context) {
     final townModel = Provider.of<TownModel>(context);
+    final townLogModel = Provider.of<TownLogModel>(context);
     return SizedBox(
       height: 200,
       child: GridView.builder(
@@ -145,7 +160,13 @@ class AllAbilitiesGrid extends StatelessWidget {
           return AbilityTile2(
             card: card,
             onPressed: (String townId) {
+              if (GlobalRound.round == 0) {
+                return;
+              }
               townModel.applyAbility(townId, card);
+              townLogModel.addCardToTownLog(townId, GlobalRound.round, card.id);
+              _controller.text =
+                  'Card ${card.id} Applied to $townId\n${_controller.text}';
             },
           );
         },

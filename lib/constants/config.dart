@@ -378,3 +378,58 @@ const eventIcons = {
   'heatwave': Icon(Icons.wb_sunny, color: heatwaveColor1, size: 36),
   'biohazard': Icon(Icons.bug_report, color: biohazardColor1, size: 36),
 };
+
+var townLog1 = {
+  "townId": "1",
+  "cards": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": [],
+  }
+};
+
+var townLog2 = {
+  "townId": "2",
+  "cards": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": [],
+  }
+};
+
+var townLog3 = {
+  "townId": "3",
+  "cards": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": [],
+  }
+};
+
+var townLog4 = {
+  "townId": "4",
+  "cards": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": [],
+  }
+};
+
+var townLog5 = {
+  "townId": "5",
+  "cards": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": [],
+  }
+};
