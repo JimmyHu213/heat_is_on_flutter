@@ -9,6 +9,7 @@
 .history
 .svn/
 migrate_working_dir/
+.vscode/
 
 # IntelliJ related
 *.iml
@@ -49,3 +50,5 @@ firebase.jason
 firestore.indexes.json
 firestore.rules
 storage.rules
+.firebase/
+lib/firebase_options.dart
