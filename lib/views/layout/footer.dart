@@ -21,7 +21,7 @@ class Footer extends StatelessWidget {
                 Image.asset('assets/images/utas.png', height: 60),
                 Image.asset('assets/images/cms.png', height: 60),
                 Image.asset('assets/images/est.png', height: 60),
-                //TODO Image.asset('assets/images/coh.svg', height: 60),
+                Image.asset('assets/images/coh.png', height: 100),
               ],
             ),
             Row(

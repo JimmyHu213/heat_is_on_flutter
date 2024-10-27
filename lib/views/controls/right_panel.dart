@@ -110,7 +110,7 @@ class AbilitiesGrid extends StatelessWidget {
             mainAxisSpacing: 10,
             childAspectRatio: 1.5,
           ),
-          itemCount: 15,
+          itemCount: config.cards.length,
           itemBuilder: (context, index) {
             var cards = GameCard.getDefaultCards(config.cards);
             var card = cards[index];
@@ -122,7 +122,7 @@ class AbilitiesGrid extends StatelessWidget {
                 }
                 townModel.applyAbility(townId, card);
                 townLogModel.addCardToTownLog(
-                    townId, GlobalRound.round, card.id);
+                    townId, GlobalRound.round, card.name);
                 _logController.text =
                     'Card ${card.id} Applied to $townId\n${_logController.text}';
               },
@@ -164,7 +164,8 @@ class AllAbilitiesGrid extends StatelessWidget {
                 return;
               }
               townModel.applyAbility(townId, card);
-              townLogModel.addCardToTownLog(townId, GlobalRound.round, card.id);
+              townLogModel.addCardToTownLog(
+                  townId, GlobalRound.round, card.name);
               _controller.text =
                   'Card ${card.id} Applied to $townId\n${_controller.text}';
             },
@@ -225,7 +226,7 @@ class _AbilityTile2State extends State<AbilityTile2> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Adaption Card'),
-          content: Text('${card.toString()}'),
+          content: Text(card.toString()),
           actions: <Widget>[
             TextButton(
               child: Text('OK'),
@@ -255,7 +256,7 @@ class _AbilityTile2State extends State<AbilityTile2> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                widget.card.id,
+                widget.card.name,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),

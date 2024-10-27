@@ -185,7 +185,7 @@ class BarChartsView extends StatelessWidget {
       final aspectBarGroups = getAspectBarGroups(towns);
       final townBarGroups = getTownBarGroups(towns);
       final xAxisLabels = towns.map((town) => town.name).toList();
-
+      // dynamic Y axis
       // double maxY1 = aspectBarGroups.fold(
       //     0,
       //     (max, group) =>
@@ -199,7 +199,7 @@ class BarChartsView extends StatelessWidget {
         width: double.infinity,
         height: 450,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomBarChart(
@@ -208,15 +208,15 @@ class BarChartsView extends StatelessWidget {
               maxY: 2000,
               title: 'Aspects Summary',
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             CustomBarChart(
               barGroups: townBarGroups,
               xAxisLabels: xAxisLabels,
               maxY: 2000,
               title: 'Towns Summary',
             ),
-            SizedBox(
-              width: 20,
+            const SizedBox(
+              width: 10,
             ),
             CustomPieChart(
                 sections: getSections(GlobalDummyTown.town),

@@ -13,13 +13,22 @@ class DashBoard extends StatelessWidget {
       padding: const EdgeInsets.only(top: 30.0),
       child: Column(
         children: <Widget>[
-          PieChartsView(),
-          SizedBox(height: 20),
-          BarChartsView(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: PieChartsView(),
+          ),
           const SizedBox(height: 20),
-          TableView(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: BarChartsView(),
+          ),
           const SizedBox(height: 20),
-          Footer()
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TableView(),
+          ),
+          const SizedBox(height: 20),
+          const Footer()
         ],
       ),
     );

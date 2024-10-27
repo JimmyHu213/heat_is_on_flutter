@@ -25,7 +25,7 @@ class GlobalRound {
     return round;
   }
 
-  //reset round to 1 if round is 5
+  //reset round to 0 if round is 5
   void checkRound() {
     if (round == 5) {
       resetRound();
@@ -184,7 +184,6 @@ class GlobalDummyTown {
         break;
     }
     _applyPenaltyToOtherAbilities(_town);
-    print(_town);
     updateTown(_town);
   }
 

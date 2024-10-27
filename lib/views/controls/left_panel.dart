@@ -50,14 +50,20 @@ class _LeftPanelState extends State<LeftPanel> {
                       ),
                     )),
                     onPressed: () {
-                      if (_currentRound == 5) {
+                      if (_currentRound >= 5) {
                         GlobalRound().resetRound();
                       } else {
                         GlobalRound().incrementRound();
                       }
                       setState(() {
-                        _logController.text = 'Round $_currentRound started\n' +
-                            _logController.text;
+                        if (GlobalRound.round == 0) {
+                          _logController.text =
+                              'Game started\n' + _logController.text;
+                        } else {
+                          _logController.text =
+                              'Round ${GlobalRound.round} started\n' +
+                                  _logController.text;
+                        }
                       });
                       // You might want to use a callback here to trigger a rebuild
                     },

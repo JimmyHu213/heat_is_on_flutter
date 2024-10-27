@@ -85,7 +85,7 @@ class PieChartsView extends StatelessWidget {
     return Consumer<TownModel>(
       builder: (context, townModel, child) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(
             townModel.towns.length,
             (i) => CustomPieChart(

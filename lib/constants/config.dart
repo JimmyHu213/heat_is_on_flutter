@@ -96,6 +96,7 @@ const aspectIds = ['nature', 'economy', 'society', 'health'];
 const bushfire1 = {
   "id": "bushfire1",
   "type": "bushfire",
+  "name": "LANDSCAPING",
   "round": 1,
   "cost": 15,
   "nature": 20,
@@ -107,6 +108,7 @@ const bushfire1 = {
 const bushfire2 = {
   "id": "bushfire2",
   "type": "bushfire",
+  "name": "MANAGED BURNING",
   "round": 2,
   "cost": 15,
   "nature": 30,
@@ -118,6 +120,7 @@ const bushfire2 = {
 const bushfire3 = {
   "id": "bushfire3",
   "type": "bushfire",
+  "name": "FIRE-RESILIENT HOMES",
   "round": 3,
   "cost": 15,
   "nature": 10,
@@ -129,6 +132,7 @@ const bushfire3 = {
 const flood1 = {
   "id": "flood1",
   "type": "flood",
+  "name": "FLOOD ZONING",
   "round": 1,
   "cost": 15,
   "nature": 0,
@@ -140,6 +144,7 @@ const flood1 = {
 const flood2 = {
   "id": "flood2",
   "type": "flood",
+  "name": "STORMWATER SPONGES",
   "round": 2,
   "cost": 15,
   "nature": 30,
@@ -151,6 +156,7 @@ const flood2 = {
 const flood3 = {
   "id": "flood3",
   "type": "flood",
+  "name": "COMMUNITY EDUCATION",
   "round": 3,
   "cost": 15,
   "nature": 10,
@@ -162,6 +168,7 @@ const flood3 = {
 const stormSurge1 = {
   "id": "stormSurge1",
   "type": "stormSurge",
+  "name": "SEA DEFENSES",
   "round": 1,
   "cost": 15,
   "nature": 10,
@@ -173,6 +180,7 @@ const stormSurge1 = {
 const stormSurge2 = {
   "id": "stormSurge2",
   "type": "stormSurge",
+  "name": "NATURAL BARRIERS",
   "round": 2,
   "cost": 15,
   "nature": 25,
@@ -184,6 +192,7 @@ const stormSurge2 = {
 const stormSurge3 = {
   "id": "stormSurge3",
   "type": "stormSurge",
+  "name": "STILTS AND TREES",
   "round": 3,
   "cost": 15,
   "nature": 10,
@@ -195,6 +204,7 @@ const stormSurge3 = {
 const heatwave1 = {
   "id": "heatwave1",
   "type": "heatwave",
+  "name": "COOL PUBLIC SPACES",
   "round": 1,
   "cost": 15,
   "nature": 10,
@@ -206,6 +216,7 @@ const heatwave1 = {
 const heatwave2 = {
   "id": "heatwave2",
   "type": "heatwave",
+  "name": "GREEN STREETS",
   "round": 2,
   "cost": 15,
   "nature": 25,
@@ -217,6 +228,7 @@ const heatwave2 = {
 const heatwave3 = {
   "id": "heatwave3",
   "type": "heatwave",
+  "name": "WHITE ROOFS",
   "round": 3,
   "cost": 15,
   "nature": 10,
@@ -228,6 +240,7 @@ const heatwave3 = {
 const biohazard1 = {
   "id": "biohazard1",
   "type": "biohazard",
+  "name": "BUFFER ZONES",
   "round": 1,
   "cost": 15,
   "nature": 20,
@@ -239,6 +252,7 @@ const biohazard1 = {
 const biohazard2 = {
   "id": "biohazard2",
   "type": "biohazard",
+  "name": "CLEAN FARMING",
   "round": 2,
   "cost": 15,
   "nature": 0,
@@ -250,6 +264,7 @@ const biohazard2 = {
 const biohazard3 = {
   "id": "biohazard3",
   "type": "biohazard",
+  "name": "BIOLOGICAL CONTROL",
   "round": 3,
   "cost": 15,
   "nature": 10,
@@ -279,6 +294,7 @@ const cards = [
 const allNature = {
   "id": "allNature",
   "type": "nature",
+  "name": "ALL NATURE",
   "round": 1,
   "cost": 15,
   "nature": 15,
@@ -290,6 +306,7 @@ const allNature = {
 const allEconomy = {
   "id": "allEconomy",
   "type": "economy",
+  "name": "ALL ECONOMY",
   "round": 1,
   "cost": 15,
   "nature": 15,
@@ -301,6 +318,7 @@ const allEconomy = {
 const allSociety = {
   "id": "allSociety",
   "type": "society",
+  "name": "ALL SOCIETY",
   "round": 1,
   "cost": 15,
   "nature": 15,
@@ -312,6 +330,7 @@ const allSociety = {
 const allHealth = {
   "id": "allHealth",
   "type": "health",
+  "name": "ALL HEALTH",
   "round": 1,
   "cost": 15,
   "nature": 15,

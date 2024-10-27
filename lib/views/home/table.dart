@@ -24,14 +24,15 @@ class TableView extends StatelessWidget {
   Widget build(BuildContext context) {
     const double fontSize = 20;
     const textStyle = TextStyle(color: Colors.white, fontSize: 16);
+    const textStyleSmall = TextStyle(color: Colors.white, fontSize: 12);
     final townLogModel = Provider.of<TownLogModel>(context);
 
     return Consumer<TownModel>(builder: (context, townModel, child) {
       return SizedBox(
           width: double.infinity,
-          height: 600,
+          height: 700,
           child: DataTable(
-            dataRowMaxHeight: 80,
+            dataRowMaxHeight: 100,
             headingRowColor: MaterialStateProperty.all(Colors.grey),
             border: TableBorder.all(
                 color: Colors.white,
@@ -97,9 +98,10 @@ class TableView extends StatelessWidget {
                               style: textStyle,
                             ))
                           : DataCell(
-                              Row(
+                              Column(
                                 children: cards
-                                    .map((e) => Text('$e ', style: textStyle))
+                                    .map((e) =>
+                                        Text('$e', style: textStyleSmall))
                                     .toList(),
                               ),
                             );
