@@ -294,7 +294,7 @@ const cards = [
 const allNature = {
   "id": "allNature",
   "type": "nature",
-  "name": "ALL NATURE",
+  "name": "PROTECTED AREAS",
   "round": 1,
   "cost": 15,
   "nature": 15,
@@ -306,7 +306,7 @@ const allNature = {
 const allEconomy = {
   "id": "allEconomy",
   "type": "economy",
-  "name": "ALL ECONOMY",
+  "name": "GREEN INDUSTRY",
   "round": 1,
   "cost": 15,
   "nature": 15,
@@ -318,7 +318,7 @@ const allEconomy = {
 const allSociety = {
   "id": "allSociety",
   "type": "society",
-  "name": "ALL SOCIETY",
+  "name": "COMMUNITY EVENTS",
   "round": 1,
   "cost": 15,
   "nature": 15,
@@ -330,7 +330,7 @@ const allSociety = {
 const allHealth = {
   "id": "allHealth",
   "type": "health",
-  "name": "ALL HEALTH",
+  "name": "HEALTH SERVICES",
   "round": 1,
   "cost": 15,
   "nature": 15,
